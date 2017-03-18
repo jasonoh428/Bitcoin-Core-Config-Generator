@@ -29,6 +29,13 @@ const presets = {
   'Defaults': null,
   'Mining': mining,
   'Non-standard Ports': ports
+  // 'Low Bandwidth': bandwidth
+  // Pruned Node
+  // Raspberry Pi https://github.com/MrChrisJ/fullnode/blob/master/Setup_Guides/bitcoin.conf
+  // Tor Node     https://gist.github.com/MrChrisJ/1098de03ef9588943fc7
+  // Testnet node
+  // Regtest node
+  // Non-syncing node
 };
 
 class Presets extends Component {
