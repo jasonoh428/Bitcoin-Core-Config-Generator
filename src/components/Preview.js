@@ -15,9 +15,9 @@ class Preview extends Component {
 
   generateConfig = () => {
     const {settings, defaults} = this.props;
-    const data = toToml(settings, defaults);
-    const filename = 'config.toml';
-    const blob = new Blob([data], {type: 'text/toml'});
+    const data = toConf(settings, defaults);
+    const filename = 'bitcoin.conf';
+    const blob = new Blob([data], {type: 'text/plain'});
     if (window.navigator.msSaveOrOpenBlob) {
       window.navigator.msSaveBlob(blob, filename);
     } else {
@@ -36,11 +36,11 @@ class Preview extends Component {
       <div className='mdl-card mdl-shadow--2dp preview-card'>
         <div className='mdl-card__title'>
           <div className='preview-title mdl-card__title-text'>
-            config.toml
+            bitcoin.conf
           </div>
         </div>
         <div className='mdl-card__actions mdl-card--border'>
-          <textarea className='preview-editor' readOnly value={toToml(settings, defaults)} />
+          <textarea className='preview-editor' readOnly value={toConf(settings, defaults)} />
         </div>
         <div className='mdl-card__menu'>
           <button
@@ -55,8 +55,8 @@ class Preview extends Component {
   }
 }
 
-function toToml (settings, defaults) {
-  const toml = Object.keys(settings)
+function toConf (settings, defaults) {
+  const conf = Object.keys(settings)
     .filter(section => section !== '__internal')
     .reduce((acc, section) => {
       // for old configs the section might be missing in defaults
@@ -78,8 +78,8 @@ function toToml (settings, defaults) {
       return acc.concat(vals);
     }, []);
 
-  if (!toml.length) {
-    toml.push(
+  if (!conf.length) {
+    conf.push(
       '',
       '',
       '# All values you use are defaults. Config is not needed.'
@@ -87,13 +87,13 @@ function toToml (settings, defaults) {
   }
 
   const { platform } = settings.__internal || defaults.__internal;
-  const configPath = joinPath([basePath(platform), 'config.toml'], platform);
-  toml.unshift(
+  const configPath = joinPath([basePath(platform), 'bitcoin.conf'], platform);
+  conf.unshift(
     '# This config should be placed in following path:',
     `#   ${configPath}`,
   );
 
-  return toml.join('\n');
+  return conf.join('\n');
 }
 
 function isEqual (a, b) {
