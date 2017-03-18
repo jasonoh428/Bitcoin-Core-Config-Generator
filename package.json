@@ -1,8 +1,8 @@
 {
-  "name": "parity-config-generator",
+  "name": "bitcoin-core-config-generator",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://ethcore.github.io/parity-config-generator",
+  "homepage": "http://jlopp.github.io/bitcoin-core-config-generator",
   "devDependencies": {
     "babel-eslint": "^7.1.1",
     "react-scripts": "0.4.3",
