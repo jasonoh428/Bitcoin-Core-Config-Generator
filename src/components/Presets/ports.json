@@ -1,14 +1,8 @@
 {
-  "signer": {
-    "port": 8001
-  },
-  "dapps": {
-    "port": 8000
-  },
   "network": {
-    "port": 30305
+    "port": 8333
   },
   "rpc": {
-    "port": 8645
+    "rpcport": 8332
   }
 }

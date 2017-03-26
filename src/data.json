@@ -11,662 +11,800 @@
       "values": ["Windows", "Linux", "Mac OS"]
     }
   },
-  "parity": {
-    "section": "Parity",
-    "description": "Basic parameters regarding Parity operation.",
-    "mode": {
-      "name": "Operating Mode",
-      "description": {
-        "active": "Parity continously syncs the chain.",
-        "passive": "Parity syncs initially, then sleeps and wakes regularly to resync",
-        "dark": "Parity syncs only when an external interface is active.",
-        "off": "Syncing is disabled (no network)."
-      },
-      "default": "active",
-      "values": [
-        "Active [active]",
-        "Dark Mode [dark]",
-        "Passive [passive]",
-        "Offline [offline]"
-      ]
+  "core": {
+    "section": "Bitcoin Core",
+    "description": "Basic parameters regarding Bitcoin Core node operation.",
+    "alertnotify": {
+      "name": "Alert Notification",
+      "description": "Execute command when an alert (or long fork) is received (%s in cmd is replaced by message)",
+      "default": ""
     },
-    "mode_timeout": {
-      "name": "Mode Timeout",
-      "description": "Parity will move to inactive mode after {} seconds.",
-      "default": 300,
-      "min": 0,
-      "max": 10000
+    "blocknotify": {
+      "name": "Block Notification",
+      "description": "Execute command when the best block changes (%s in cmd is replaced by block hash)",
+      "default": ""
     },
-    "mode_alarm": {
-      "name": "Mode Alarm",
-      "description": "Parity will automatically wake-up every {} seconds.",
-      "default": 3600,
-      "min": 0,
-      "max": 600000
+    "blocksonly": {
+      "name": "Blocks Only Mode",
+      "description": "Only download and relay blocks - ignore unconfirmed transaction",
+      "default": 0
     },
-    "auto_update": {
-      "name": "Auto Update",
-      "description": {
-        "all": "Auto-updates to every release.",
-        "critical": "Auto-updates only to consensus/security updates.",
-        "none": "No updates will be auto-installed."
-      },
-      "default": "none",
-      "values": ["all", "critical", "none"]
+    "assumevalid": {
+      "name": "Assume Valid Chain History",
+      "description": "Assume that this block hash and its ancestors are valid. Skip their script verification (performance boost.) Set to 0 to verify all blocks. We recommend leaving value blank.",
+      "default": ""
     },
-    "release_track": {
-      "name": "Auto Update Relese Track",
-      "description": {
-        "beta": "Beta",
-        "nightly": "Nightly (Unstable)",
-        "current": "Whatever track this executable was released on"
-      },
-      "default": "current",
-      "values": ["beta", "nightly", "current"]
+    "conf": {
+      "name": "Config File Location",
+      "description": "Specify the location of the configuration file. To use non-default location, create a default location config file containing this setting.",
+      "default": "$BASE/bitcoin.conf"
     },
-    "no_download": {
-      "name": "Don't Download Updates",
-      "description": "Disables auto downloading of new releases. Not recommended.",
-      "default": false
+    "daemon": {
+      "name": "Daemon Mode",
+      "description": "Run in the background as a daemon and accept commands.",
+      "default": 1
     },
-    "no_consensus": {
-      "name": "No Consensus",
-      "description": "Forces Parity to run even if there are known issues regarding consensus. Not recommended.",
-      "default": false
-    },
-    "chain": {
-      "name": "Chain",
-      "description": {
-        "homestead": "Main Network",
-        "ropsten": " Test Network",
-        "classic": "Ethereum Classic",
-        "expanse": "Expanse"
-      },
-      "default": "homestead",
-      "values": ["homestead", "ropsten", "classic", "expanse"]
-    },
-    "base_path": {
-      "name": "Base Path",
-      "description": "Blockchain and settings will be stored in {}.",
+    "datadir": {
+      "name": "Data Storage Location",
+      "description": "Specify a non-default location to store blockchain and other data.",
       "default": "$BASE"
     },
-    "db_path": {
-      "name": "Database Path",
-      "description": "Parity databases will be stored in {}.",
-      "default": "$LOCAL/chains"
+    "dbcache": {
+      "name": "DB Cache Size",
+      "description": "Set database cache size in megabytes; machines sync faster with a larger cache. Recommend setting as high as possible based upon machine's available RAM.",
+      "default": 300,
+      "min": 4
     },
-    "keys_path": {
-      "name": "Keys Path",
-      "description": "Your encrypted private keys will be stored in {}.",
-      "default": "$BASE/keys"
+    "feefilter": {
+      "name": "Fee Filter",
+      "description": "Tell peer nodes not to send transactions to you that pay less than your mempool min fee.",
+      "default": 1
     },
-    "identity": {
-      "name": "Identity",
-      "description": "You will be identified as '{}' amongst other nodes..",
-      "default": ""
-    }
-  },
-  "account": {
-    "section": "Account",
-    "description": "Unlocking accounts and private keys security parameters.",
-    "unlock": {
-      "name": "Accounts to unlock",
-      "description": "From: [{}] you'll be able to send tranasactions without password.",
-      "default": [""]
-    },
-    "password": {
-      "name": "Password File",
-      "description": "File at {} should contain passwords to unlock your accounts. One password per line.",
+    "loadblock": {
+      "name": "Import Blocks From File",
+      "description": "Imports blocks from external blk000??.dat file on startup. This option can be set multiple times with different file values.",
       "default": ""
     },
-    "keys_iterations": {
-      "name": "Keys deriving iterations",
-      "description": "Parity will do {} iterations to derive private keys from passphrase (higher=safer).",
-      "default": 10240,
-      "min": 1000,
-      "max": 1000000
-    }
-  },
-  "ui": {
-    "section": "Parity UI (Trusted Signer)",
-    "description": "Signer is used to manage your wallet, confirm and sign transactions.",
-    "disable": {
-      "name": "Disable UI",
-      "description": "You will need to unlock accounts manually if UI is disabled.",
-      "default": false
+    "maxorphantx": {
+      "name": "Max Orphan Transactions",
+      "description": "Keep at most <n> unconnectable transactions in memory.",
+      "default": 100,
+      "min": 0
     },
-    "force": {
-      "name": "Force Enable UI",
-      "description": "Enable Signer even when it would be disabled by other options.",
-      "default": false
+    "maxmempool": {
+      "name": "Max Mempool Size",
+      "description": "Keep the transaction memory pool below <n> megabytess.",
+      "default": 300
     },
-    "port": {
-      "name": "Port",
-      "description": "UI will be accessible on port {}.",
-      "default": 8180
+    "mempoolexpiry": {
+      "name": "Mempool Expiration",
+      "description": "Do not keep transactions in the mempool longer than <n> hours.",
+      "default": 336,
+      "min": 1
     },
-    "interface": {
-      "name": "Interface",
-      "description":" UI will listen for connections on IP {}.",
-      "default": "local"
+    "blockreconstructionextratxn": {
+      "name": "Block Reconstruction Transactions",
+      "description": "Extra transactions to keep in memory for compact block reconstructions.",
+      "default": 100
     },
-    "path": {
-      "name": "Path",
-      "description": "UI configuration will be stored at {}.",
-      "default": "$HOME/.parity/signer"
+    "par": {
+      "name": "Script Verification Parallelization",
+      "description": "Set the number of script verification threads. (1 to CPU_CORES, 0 = automatic, less than 0 = leave that many cores free).",
+      "default": 0
+    },
+    "pid": {
+      "name": "PID file",
+      "description": "Specify process ID file name. Ignored for Windows.",
+      "default": "bitcoind.pid"
+    },
+    "prune": {
+      "name": "Prune Old Blocks",
+      "description": "Reduce storage requirements by only storing most recent N MiB of block. This mode is incompatible with -txindex and -rescan. WARNING: Reverting this setting requires re-downloading the entire blockchain. (default: 0 = disable pruning blocks, 1 = allow manual pruning via RPC, greater than 550 = automatically prune blocks to stay under target size in MiB).",
+      "default": 0,
+      "min": 0
+    },
+    "reindex-chainstate": {
+      "name": "Reindex Chainstate",
+      "description": "Reindex chain state from the currently indexed blocks. WARNING: very slow!",
+      "default": 0
+    },
+    "reindex": {
+      "name": "Reindex",
+      "description": "Rebuild chain state and block index from the blk*.dat files on disk. WARNING: very slow!",
+      "default": 0
+    },
+    "sysperms": {
+      "name": "System File Permissions",
+      "description": "Create new files with system default permissions. Only effective if wallet is disabled.",
+      "default": 0
+    },
+    "txindex": {
+      "name": "Index Transactions",
+      "description": "Maintain a full transaction index, used by the getrawtransaction rpc call.",
+      "default": 0
     }
   },
   "network": {
     "section": "Networking",
-    "description": "Network and peer-related settings. Network is not available if Parity is in offline mode.",
-    "warp": {
-      "name": "Warp Sync",
-      "description": "Parity will sync by downloading latest state first. Node will be operational in couple minutes.",
-      "default": false
+    "description": "Options for how your node interacts with other peers on the network.",
+    "addnode": {
+      "name": "Connect to Peer",
+      "description": "Add a node IP address to connect to and attempt to keep the connection open. This option can be set multiple times.",
+      "default": ""
     },
-    "port": {
-      "name": "Port",
-      "description": "Parity will listen for connections on port {}.",
-      "default": 30303
+    "banscore": {
+      "name": "Peer Ban Threshold",
+      "description": "Threshold for disconnecting misbehaving peers.",
+      "default": 100,
+      "min": 1
     },
-    "min_peers": {
-      "name": "Min Peers",
-      "description": "Parity will try to maintain connection to at least {} peers.",
-      "default": 25,
-      "min": 0,
-      "max": 100000
+    "bantime": {
+      "name": "Peer Ban Time",
+      "description": "Number of seconds to keep misbehaving peers from reconnecting.",
+      "default": 86400,
+      "min": 1
     },
-    "max_peers": {
-      "name": "Max Peers",
-      "description": "Parity will maintain at most {} peers.",
-      "default": 50,
-      "min": 0,
-      "max": 100000
+    "bind": {
+      "name": "Bind to IP Address",
+      "description": "Bind to given address and always listen on it. Use [host]:port notation for IPv6.",
+      "default": ""
     },
-    "snapshot_peers": {
-      "name": "Snapshot Sync Peers",
-      "description": "Parity will maintain additional {} peers for snapshot sync.",
-      "default": 16,
-      "min": 0,
-      "max": 100000
+    "connect": {
+      "name": "Only Connect to Peer",
+      "description": "Connect only to the specified node(s); can be set multiple times. Set to 0 to disable automatic connections.",
+      "default": ""
     },
-    "max_pending_peers": {
-      "name": "Max Pending Peers",
-      "description": "Parity will allow up to {} pending connections.",
-      "default": 64,
-      "min": 0,
-      "max": 100000
+    "discover": {
+      "name": "Discover IP Address",
+      "description": "Discover own IP addresses. If disabled, should be used with -externalip or -proxy.",
+      "default": 1
     },
-    "nat": {
-      "name": "NAT settings",
-      "description": {
-        "any": "Parity will use all possible methods to determine public IP address.",
-        "none": "Parity won't attempt detect you public IP address",
-        "upnp": "Parity will use UPNP to detect your public IP address.",
-        "extip:": "Fill up the config manually and provide your public IP address."
-      },
-      "default": "any",
-      "values": [
-        "Any [any]",
-        "None [none]",
-        "UPNP [upnp]",
-        "External IP [extip:]"
-      ]
+    "dns": {
+      "name": "Allow DNS Lookups",
+      "description": "Allow DNS lookups for -addnode, -seednode and -connect values.",
+      "default": 1
     },
-    "id": {
-      "name": "Network ID",
-      "description": "Network ID of the chain will be overridden to: {}",
+    "dnsseed": {
+      "name": "Use DNS Seed",
+      "description": "Query for peer addresses via DNS lookup, if low on addresses.",
+      "default": 1
+    },
+    "externalip": {
+      "name": "External IP Address",
+      "description": "Specify your own public IP address.",
+      "default": ""
+    },
+    "forcednsseed": {
+      "name": "Force DNS Seed",
+      "description": "Always query for peer addresses via DNS lookup.",
       "default": 0
     },
-    "bootnodes": {
-      "name": "Bootnodes",
-      "description": "Override the bootnodes from selected chain file.",
-      "default": [""]
+    "listen": {
+      "name": "Listen for Incoming Connections",
+      "description": "Accept incoming connections from peers.",
+      "default": 1
     },
-    "discovery": {
-      "name": "Peers Discovery",
-      "description": "Enable or disable new peers discovery.",
-      "default": true
+    "listenonion": {
+      "name": "Tor Hidden Service",
+      "description": "Automatically create Tor hidden service.",
+      "default": 1
     },
-    "node_key": {
-      "name": "Node Key",
-      "description": "Specify node secret key (64-char hex or input to SHA3)",
+    "maxconnections": {
+      "name": "Max Peer Connections",
+      "description": "Maintain at most N connections to peers.",
+      "default": 125,
+      "min": 0,
+      "max": 250
+    },
+    "maxreceivebuffer": {
+      "name": "Max Receive Buffer",
+      "description": "Maximum per-connection receive buffer (KiB).",
+      "default": 5000,
+      "min": 1000
+    },
+    "maxsendbuffer": {
+      "name": "Max Send Buffer",
+      "description": "Maximum per-connection send buffer (KiB).",
+      "default": 1000,
+      "min": 100
+    },
+    "maxtimeadjustment": {
+      "name": "Max Time Adjustment",
+      "description": "Maximum allowed median peer time offset adjustment in seconds. Local perspective of time may be influenced by peers forward or backward by this amount.",
+      "default": 4200,
+      "min": 0
+    },
+    "onion": {
+      "name": "Tor Proxy",
+      "description": "Use separate SOCKS5 proxy <ip:port> to reach peers via Tor hidden services.",
       "default": ""
     },
-    "reserved_peers": {
-      "name": "Reserved Peers Path",
-      "description": "Specify a path to a file with peers' enodes to be always connected to.",
-      "default": [""]
-    },
-    "reserved_only": {
-      "name": "Reserved Only", 
-      "description": "Connect only to reserved nodes.",
-      "default": false
-    },
-    "allow_ips": {
-      "name": "Allow Connections",
+    "onlynet": {
+      "name": "Only Use Specific Network",
       "description": {
-        "all": "Parity will not filter outbound connections.",
-        "private": "Parity will connect only to private network IP addresses.",
-        "public": "Parity will connect only to public network IP addresses."
+        "": "Use every available network",
+        "ipv4": "Only connect to peers via IPV4",
+        "ipv6": "Only connect to peers via IPV6.",
+        "onion": "Only connect to peers via Tor."
       },
-      "default": "all",
+      "default": "",
       "values": [
-        "All IPs [all]",
-        "Private Network [private]",
-        "Public Network [public]"
+        "Any []",
+        "IPV4 [ipv4]",
+        "IPV6 [ipv6]",
+        "Tor [onion]"
       ]
-    }
-  },
-  "rpc": {
-    "section": "RPC",
-    "description": "Expose JSON-RPC APIs over HTTP.",
-    "disable": {
-      "name": "Disable JSON-RPC",
-      "description": "You won't be able to interact with Parity using JSON-RPC over HTTP.",
-      "default": false
+    },
+    "peerbloomfilters": {
+      "name": "Permit Peer Bloom Filters",
+      "description": "Support filtering of blocks and transactions with bloom filters.",
+      "default": 1
     },
     "port": {
-      "name": "Port",
-      "description": "JSON-RPC over HTTP will be accessible on port {}.",
-      "default": 8180
-    },
-    "interface": {
-      "name": "Interface",
-      "description":" JSON-RPC will be listening for connections on IP {}.",
-      "default": "local"
-    },
-    "cors": {
-      "name": "CORS",
-      "description": "Allows Cross-Origin Requests from domain '{}'.",
-      "default": "null"
-    },
-    "hosts": {
-      "name": "Allowed Hosts",
-      "description": "Allow connections only using specified addresses.",
-      "default": [""]
-    },
-    "apis": {
-      "name": "Exposed APIs",
-      "description": "Only selected APIs will be exposed over this interface.",
-      "default": ["web3", "eth", "net", "parity", "traces", "rpc"],
-      "values": [
-        "Web3 [web3]",
-        "Eth [eth]",
-        "Net [net]",
-        "Personal [personal]",
-        "Parity [parity]",
-        "Parity Accounts [parity_accounts]",
-        "Traces [traces]",
-        "Trusted Signer (unsafe) [signer]",
-        "Parity Set* (unsafe) [parity_set]",
-        "RPC [rpc]"
-      ]
-    }
-  },
-  "ipc": {
-    "section": "IPC",
-    "description": "Expose JSON-RPC APIs over IPC.",
-    "disable": {
-      "name": "Disable IPC",
-      "description": "You won't be able to use IPC to interact with Parity.",
-      "default": false
-    },
-    "path": {
-      "name": "Path",
-      "description": "Parity will create an IPC socket at {}.",
-      "default": "$HOME/.parity/jsonrpc.ipc"
-    },
-    "apis": {
-      "name": "Exposed APIs",
-      "description": "Only selected APIs will be exposed over this interface.",
-      "default": ["web3", "eth", "net", "parity", "parity_accounts", "traces", "rpc"],
-      "values": [
-        "Web3 [web3]",
-        "Eth [eth]",
-        "Net [net]",
-        "Personal [personal]",
-        "Parity [parity]",
-        "Parity Accounts [parity_accounts]",
-        "Traces [traces]",
-        "Trusted Signer (unsafe) [signer]",
-        "Parity Set* (unsafe) [parity_set]"
-      ]
-    }
-  },
-  "dapps": {
-    "section": "Dapps Server",
-    "description": "Run and customize the web Dapps Server.",
-    "disable": {
-      "name": "Disable Dapps",
-      "description": "You won't be able to access any web Dapps.",
-      "default": false
-    },
-    "port": {
-      "name": "Port",
-      "description": "Dapps Server will be running on port {}.",
-      "default": 8080
-    },
-    "interface": {
-      "name": "Interface",
-      "description":" Dapps Server will listen for connections on IP {}.",
-      "default": "local"
-    },
-    "hosts": {
-      "name": "Allowed Hosts",
-      "description": "Allow connections only using specified addresses.",
-      "default": [""]
-    },
-    "path": {
-      "name": "Path",
-      "description": "Local Dapps will be served from {}.",
-      "default": "$HOME/.parity/dapps"
-    },
-    "user": {
-      "name": "Authentication User",
-      "description": "If specified, will require authorization to access dapps server.",
+      "name": "Listen Port",
+      "description": "Listen for incoming connections on non-default port.",
       "default": ""
     },
-    "password": {
-      "name": "Authentication Password",
-      "description": "Password for specified Dapps User.",
+    "proxy": {
+      "name": "Proxy Connection",
+      "description": "Connect through <ip:port> SOCKS5 proxy.",
       "default": ""
+    },
+    "proxyrandomize": {
+      "name": "Randomize Proxy",
+      "description": "Randomize credentials for every proxy connection. This enables Tor stream isolation.",
+      "default": 1
+    },
+    "seednode": {
+      "name": "Seed Node",
+      "description": "Connect to a node (IP address) to retrieve peer addresses, then disconnect.",
+      "default": ""
+    },
+    "timeout": {
+      "name": "Connection Timeout",
+      "description": "Peer connection timeout in milliseconds.",
+      "default": 5000,
+      "min": 1
+    },
+    "torcontrol": {
+      "name": "Tor Control",
+      "description": "Tor control <ip:port> to use if onion listening enabled.",
+      "default": "127.0.0.1:9051"
+    },
+    "torpassword": {
+      "name": "Tor Control Password",
+      "description": "Tor control port password.",
+      "default": ""
+    },
+    "upnp": {
+      "name": "Universal Plug 'n Play",
+      "description": "Use UPnP to map the listening port.",
+      "default": 0
+    },
+    "whitebind": {
+      "name": "Whitelist Bound IP Address",
+      "description": "Bind to given address and whitelist peers connecting to it. Use [host]:port notation for IPv6.",
+      "default": ""
+    },
+    "whitelist": {
+      "name": "Whitelist Peer",
+      "description": "Whitelist peers connecting from the given IP address (e.g. 1.2.3.4) or CIDR notated network (e.g. 1.2.3.0/24). Can be specified multiple times. Whitelisted peers cannot be DoS banned and their transactions are always relayed, even if they are already in the mempool. Useful for a gateway node.",
+      "default": ""
+    },
+    "maxuploadtarget": {
+      "name": "Max Upload Target",
+      "description": "Tries to keep outbound traffic under the given target (in MiB per 24h), 0 = no limit.",
+      "default": 0,
+      "min": 0
+    }
+  },
+  "zeromq": {
+    "section": "ZeroMQ",
+    "description": "Options for handling notifications emitted via ZeroMQ.",
+    "zmqpubhashblock": {
+      "name": "Publish Block Hashes",
+      "description": "Enable publishing of block hashes to <address>.",
+      "default": ""
+    },
+    "zmqpubhashtx": {
+      "name": "Publish Transaction Hashes",
+      "description": "Enable publishing of transaction hashes to <address>.",
+      "default": ""
+    },
+    "zmqpubrawblock": {
+      "name": "Publish Raw Blocks",
+      "description": "Enable publishing of raw block hex to <address>.",
+      "default": ""
+    },
+    "zmqpubrawtx": {
+      "name": "Publish Raw Transactions",
+      "description": "Enable publishing of raw transaction hex to <address>.",
+      "default": ""
+    }
+  },
+  "debug": {
+    "section": "Debugging & Testing",
+    "description": "Features that help developers who are testing changes to Bitcoin Core.",
+    "uacomment": {
+      "name": "User Agent Comment",
+      "description": "Append comment to the user agent string.",
+      "default": ""
+    },
+    "checkblocks": {
+      "name": "Check Blocks",
+      "description": "How many recent blocks to check at startup.",
+      "default": 6,
+      "min": 0
+    },
+    "checklevel": {
+      "name": "Check Block Level",
+      "description": "How thorough the block verification of -checkblocks is (0-4).",
+      "default": 3,
+      "min": 0,
+      "max": 4
+    },
+    "checkmempool": {
+      "name": "Check Mempool",
+      "description": "Run checks every <n> transactions.",
+      "default": 0,
+      "min": 0
+    },
+    "checkpoints": {
+      "name": "Enable Checkpoints",
+      "description": "Disable expensive verification for known chain history.",
+      "default": 1
+    },
+    "disablesafemode": {
+      "name": "Disable Safe Mode",
+      "description": "Disable safemode, override a real safe mode event.",
+      "default": 0
+    },
+    "testsafemode": {
+      "name": "Force Safe Mode",
+      "description": "Force safe mode.",
+      "default": 0
+    },
+    "dropmessagestest": {
+      "name": "Test Dropped Messages",
+      "description": "Randomly drop 1 of every <n> network messages.",
+      "default": ""
+    },
+    "fuzzmessagestest": {
+      "name": "Test Fuzzed Messages",
+      "description": "Randomly fuzz 1 of every <n> network messages.",
+      "default": ""
+    },
+    "stopafterblockimport": {
+      "name": "Stop After Block Import",
+      "description": "Stop running after importing blocks from disk.",
+      "default": 0
+    },
+    "limitancestorcount": {
+      "name": "Limit Transaction Ancestor Count",
+      "description": "Do not accept transactions if number of in-mempool ancestors is <n> or more.",
+      "default": 25,
+      "min": 0
+    },
+    "limitancestorsize": {
+      "name": "Limit Transaction Ancestor Size",
+      "description": "Do not accept transactions whose size with all in-mempool ancestors exceeds <n> kilobytes.",
+      "default": 101,
+      "min": 0
+    },
+    "limitdescendantcount": {
+      "name": "Limit Transaction Descendant Count",
+      "description": "Do not accept transactions if any ancestor would have <n> or more in-mempool descendants.",
+      "default": 25,
+      "min": 0
+    },
+    "limitdescendantsize": {
+      "name": "Limit Transaction Descendant Size",
+      "description": "Do not accept transactions whose size with all in-mempool descendants exceeds <n> kilobytes.",
+      "default": 101,
+      "min": 0
+    },
+    "bip9params": {
+      "name": "BIP9 Deployment Params",
+      "description": "Use given start/end times for specified BIP9 deployment. Regtest mode only, in format <deployment:start:end>. Can be set multiple times.",
+      "default": ""
+    },
+    "debug": {
+      "name": "Debug Logging",
+      "description": {
+        "0": "Disable debug logging.",
+        "1": "Enable debug logging for all categories.",
+        "addrman": "Enable address manager logging.",
+        "alert": "Enable alert logging",
+        "bench": "Enable benchmark logging",
+        "cmpctblock": "Enable compact block logging",
+        "coindb": "Enable coin database logging",
+        "db": "Enable database logging",
+        "http": "Enable HTTP logging",
+        "leveldb": "Enable leveldb logging",
+        "libevent": "Enable libevent logging",
+        "lock": "Enable lock logging",
+        "mempool": "Enable mempool logging",
+        "mempoolrej": "Enable mempool rejection logging",
+        "net": "Enable network logging",
+        "proxy": "Enable proxy logging",
+        "prune": "Enable pruning logging",
+        "rand": "Enable randomness logging",
+        "reindex": "Enable reindexing logging",
+        "rpc": "Enable RPC logging",
+        "selectcoins": "Enable coin selection logging",
+        "tor": "Enable Tor logging",
+        "zmq": "Enable ZeroMQ logging"
+      },
+      "default": "0",
+      "values": [
+        "Disable [0]",
+        "Enable All [1]",
+        "Address Manager [addrman]",
+        "Alerts [alert]",
+        "Benchmarking [bench]",
+        "Compact Blocks [cmpctblock]",
+        "CoinDB [coindb]",
+        "Database [db]",
+        "HTTP [http]",
+        "LevelDB [leveldb]",
+        "LibEvent [libevent]",
+        "Locking [lock]",
+        "Mempool [mempool]",
+        "Mempool Rejection [mempoolrej]",
+        "Networking [net]",
+        "Proxy [proxy]",
+        "Pruning [prune]",
+        "Random [rand]",
+        "Reinding [reindex]",
+        "RPC [rpc]",
+        "Coin Selection [selectcoins]",
+        "Tor [tor]",
+        "ZeroMQ [zmq]"
+      ]
+    },
+    "logips": {
+      "name": "Log IP Addresses",
+      "description": "Log IP Addresses in debug output.",
+      "default": 0
+    },
+    "logtimestamps": {
+      "name": "Log Timestamps",
+      "description": "Log timestamps in debug output.",
+      "default": 1
+    },
+    "logtimemicros": {
+      "name": "Log Precise Timestamps",
+      "description": "Log timestamps with microsecond precision.",
+      "default": 0
+    },
+    "mocktime": {
+      "name": "Mock Timestamps",
+      "description": "Replace actual time with <n> seconds since epoch.",
+      "default": 0
+    },
+    "maxsigcachesize": {
+      "name": "Max Signature Cache Size",
+      "description": "Limit size of signature cache to <n> MiB.",
+      "default": 32,
+      "min": 1
+    },
+    "maxtipage": {
+      "name": "Max Age of Chain Tip",
+      "description": "Maximum tip age in seconds to consider node in initial block download.",
+      "default": 86400,
+      "min": 0
+    },
+    "maxtxfee": {
+      "name": "Max Transaction Fee",
+      "description": "Maximum total fees (in BTC) to use in a single wallet transaction or raw transaction; setting this too low may abort large transactions.",
+      "default": 0.1,
+      "min": 0
+    },
+    "printtoconsole": {
+      "name": "Output to Console",
+      "description": "Send trace/debug info to console instead of debug.log.",
+      "default": 0
+    },
+    "promiscuousmempoolflags": {
+      "name": "Script Verification Flags",
+      "description": "Integer representing the script verification flags to enable (all ORed together) - flags can be found in interpreter.h.",
+      "default": ""
+    },
+    "shrinkdebugfile": {
+      "name": "Shrink Debug Log File",
+      "description": "Shrink debug.log file on client startup.",
+      "default": 1
+    },
+    "testnet": {
+      "name": "Testnet",
+      "description": "Run this node on the Bitcoin Test Network.",
+      "default": 0
+    },
+    "regtest": {
+      "name": "Regtest",
+      "description": "Run this node on its own independent test network.",
+      "default": 0
+    }
+  },
+  "relay": {
+    "section": "Transaction Relay",
+    "description": "Fine tune settings for what transactions your node will relay to peers.",
+    "acceptnonstdtxn": {
+      "name": "Accept Non-Standard Transactions",
+      "description": "Relay and mine non-standard transactions (testnet/regtest only.)",
+      "default": 0
+    },
+    "incrementalrelayfee": {
+      "name": "Incremental Relay Fee",
+      "description": "Fee rate (in BTC/kB) used to define cost of relay, used for mempool limiting and BIP 125 replacement.",
+      "default": 0.00001,
+      "min": 0
+    },
+    "dustrelayfee": {
+      "name": "Dust Relay Fee",
+      "description": "Fee rate (in BTC/kB) used to defined dust, the value of an output such that it will cost about 1/3 of its value in fees at this fee rate to spend it.",
+      "default": 0.00001,
+      "min": 0
+    },
+    "bytespersigop": {
+      "name": "Bytes Per Signature Operation",
+      "description": "Equivalent bytes per sigop in transactions for relay and mining.",
+      "default": 20,
+      "min": 1
+    },
+    "datacarrier": {
+      "name": "Relay OP_RETURN Transactions",
+      "description": "Relay transactions with OP_RETURN outputs.",
+      "default": 1
+    },
+    "datacarriersize": {
+      "name": "Max OP_RETURN Size",
+      "description": "Maximum size of data in OP_RETURN outputs we relay and mine.",
+      "default": 83,
+      "min": 1
+    },
+    "mempoolreplacement": {
+      "name": "Allow Replacement of Mempool Transactions",
+      "description": "Allow transaction replacement in the memory pool.",
+      "default": 1
+    },
+    "permitbaremultisig": {
+      "name": "Permit Bare Multisig",
+      "description": "Relay non-P2SH multisig transactions.",
+      "default": 1
+    },
+    "minrelaytxfee": {
+      "name": "Min Transaction Relay Fee",
+      "description": "Fee rates (in BTC/kB) smaller than this are considered zero fee for relaying, mining and transaction creation.",
+      "default": 0.00001,
+      "min": 0
+    },
+    "whitelistrelay": {
+      "name": "Whitelist Relay",
+      "description": "Accept relayed transactions received from whitelisted peers even when not relaying transactions.",
+      "default": 1
+    },
+    "whitelistforcerelay": {
+      "name": "Whitelist Force Relay",
+      "description": "Force relay of transactions from whitelisted peers even if they violate local relay policy.",
+      "default": 1
     }
   },
   "mining": {
     "section": "Mining",
-    "description": "Options for mining nodes.",
-    "author": {
-      "name": "Author (Coinbase)",
-      "description": "Account address to receive reward when block is mined.",
+    "description": "Configure attributes of blocks that can be mined by this node.",
+    "blockmaxweight": {
+      "name": "Max Block Weight",
+      "description": "Set maximum BIP141 block weight.",
+      "default": 3000000
+    },
+    "blockmaxsize": {
+      "name": "Max Block Size",
+      "description": "Set maximum block size in bytes.",
+      "default": 750000
+    },
+    "blockmintxfee": {
+      "name": "Block Min Transaction Fee",
+      "description": "Set lowest fee rate (in BTC/kB) for transactions to be included in block creation.",
+      "default": 0.00001,
+      "min": 0
+    },
+    "blockversion": {
+      "name": "Block Version",
+      "description": "Override block version to test forking scenarios.",
+      "default": ""
+    }
+  },
+  "rpc": {
+    "section": "RPC API",
+    "description": "Configure security and performance options for accessing the node's RPC interface.",
+    "server": {
+      "name": "Enable RPC Server",
+      "description": "Accept command line and JSON-RPC commands.",
+      "default": 1
+    },
+    "rest": {
+      "name": "Enable REST API",
+      "description": "Accept public REST requests.",
+      "default": 0
+    },
+    "rpcbind": {
+      "name": "Bind RPC Address",
+      "description": "Bind to given address to listen for JSON-RPC connections. This option is ignored unless -rpcallowip is also passed. Port is optional and overrides -rpcport. Use [host]:port notation for IPv6. This option can be specified multiple times. (default: 127.0.0.1 and ::1 i.e., localhost, or if -rpcallowip has been specified, 0.0.0.0 and :: i.e., all addresses)",
       "default": ""
     },
-    "engine_signer": {
-      "name": "Engine Signer",
-      "description": "Account to sign consensus messages and issue blocks for non-PoW chains.",
+    "rpccookiefile": {
+      "name": "RPC Cookie Directory",
+      "description": "Location of the RPC auth cookie",
+      "default": "$BASE/"
+    },
+    "rpcuser": {
+      "name": "RPC User",
+      "description": "Username for JSON-RPC connections",
       "default": ""
     },
-    "force_sealing": {
-      "name": "Force Sealing",
-      "description": "Prepare a block to seal even when there are no miners connected.",
-      "default": false
+    "rpcpassword": {
+      "name": "RPC Password",
+      "description": "Password for JSON-RPC connections",
+      "default": ""
     },
-    "reseal_on_txs": {
-      "name": "Reseal On Transactions",
+    "rpcauth": {
+      "name": "RPC Auth",
+      "description": "Username and hashed password for JSON-RPC connections. The field <userpw> comes in the format: <USERNAME>:<SALT>$<HASH>. The client then connects normally using the rpcuser=<USERNAME>/rpcpassword=<PASSWORD> pair of arguments. This option can be specified multiple times.",
+      "default": ""
+    },
+    "rpcport": {
+      "name": "RPC Port",
+      "description": "Listen for JSON-RPC connections on this port",
+      "default": ""
+    },
+    "rpcallowip": {
+      "name": "RPC Allow IP Address",
+      "description": "Allow JSON-RPC connections from specified source. Valid for <ip> are a single IP (e.g. 1.2.3.4), a network/netmask (e.g. 1.2.3.4/255.255.255.0) or a network/CIDR (e.g. 1.2.3.4/24). This option can be specified multiple times.",
+      "default": ""
+    },
+    "rpcthreads": {
+      "name": "RPC Threads",
+      "description": "Set the number of threads to service RPC calls",
+      "default": 4,
+      "min": 1
+    },
+    "rpcworkqueue": {
+      "name": "RPC Work Queue Size",
+      "description": "Set the depth of the work queue to service RPC calls",
+      "default": 16,
+      "min": 1
+    },
+    "rpcserialversion": {
+      "name": "RPC Serialization",
       "description": {
-        "none": "New transactions will not cause a new pending block to be created.",
-        "own": "New pending block will be created only on transactions sent using local RPC/IPC",
-        "ext": "New pending block will be created only on external transactions.",
-        "all": "New pending block will be created for all transactions (both local and external)."
+        "0": "Return raw transaction or block hex with non-SegWit serialization.",
+        "1": "Return raw transaction or block hex with SegWit serialization."
       },
-      "default": "own",
+      "default": "1",
       "values": [
-        "Never [none]",
-        "Local [own]",
-        "External [ext]",
-        "All [all]"
+        "Non-SegWit [0]",
+        "SegWit [1]"
       ]
     },
-    "reseal_min_period": {
-      "name": "Reseal Period",
-      "description": "New pending block will be created only once per {} milliseconds.",
-      "default": 2000,
-      "min": 1,
-      "max": 30000
+    "rpcservertimeout": {
+      "name": "RPC Timeout",
+      "description": "Number of seconds after which an uncompleted RPC call will time out",
+      "default": 30,
+      "min": 1
+    }
+  },
+  "wallet": {
+    "section": "Wallet",
+    "description": "Configure behavior of the node's wallet.",
+    "disablewallet": {
+      "name": "Disable Wallet",
+      "description": "Do not load the wallet and disable wallet RPC calls.",
+      "default": 0
     },
-    "work_queue_size": {
-      "name": "Work Queue Size",
-      "description": "Parity will produce at most {} distinct pending blocks for miners.",
-      "default": 20,
-      "min": 1,
-      "max": 100
+    "keypool": {
+      "name": "Key Pool Size",
+      "description": "Set key pool size to <n>. Recommended to use a large number for high volume non-HD wallets.",
+      "default": 100,
+      "min": 10
     },
-    "relay_set": {
-      "name": "Relay Set",
-      "description": {
-        "cheap": "Relay any transaction in the queue (may include invalid transactions).",
-        "strict": "Relay only executed transactions (will relay nothing if not mining).",
-        "lenient": "Same as strict when mining, and cheap when not."
-      },
-      "values": [
-        "Cheap [cheap]",
-        "Strict [strict]",
-        "Lenient [lenient]"
-      ],
-      "default": "cheap"
+    "fallbackfee": {
+      "name": "Fallback Transaction Fee",
+      "description": "A fee rate (in BTC/kB) that will be used when fee estimation has insufficient data",
+      "default": 0.0002
     },
-    "usd_per_tx": {
-      "name": "USD per Transaction",
-      "description": "You will be paid ${} for a basic transaction - Minimum gas price will be set accordingly.",
-      "default": 0.0025
+    "mintxfee": {
+      "name": "Min Transaction Fee",
+      "description": "Fee rates (in BTC/kB) smaller than this are considered zero fee for transaction creation",
+      "default": 0.00001,
+      "min": 0
     },
-    "usd_per_eth": {
-      "name": "USD per Eth",
-      "description": "Specify source (URL) or current price of Eth.",
-      "default": "auto"
+    "paytxfee": {
+      "name": "Pay Transaction Fee",
+      "description": "Fee rate (in BTC/kB) to add to transactions you send. Not recommended to set!",
+      "default": 0
     },
-    "price_update_period": {
-      "name": "Price Update Period",
-      "description": "Parity will update price per ETH every {}.",
-      "default": "1 hour"
+    "rescan": {
+      "name": "Rescan Wallet",
+      "description": "Rescan the blockchain for missing wallet transactions on startup. WARNING: very slow!",
+      "default": 0
     },
-    "gas_floor_target": {
-      "name": "Gas Floor Target",
-      "description": "Targeting {} gas per block when sealing a new block.",
-      "default": 4700000
+    "salvagewallet": {
+      "name": "Salvage Wallet",
+      "description": "Attempt to recover private keys from a corrupt wallet on startup.",
+      "default": 0
     },
-    "gas_cap": {
-      "name": "Gas Cap",
-      "description": "Gas limit will be raised at most by {} gas.",
-      "default": 6283184
+    "spendzeroconfchange": {
+      "name": "Spend Unconfirmed Change",
+      "description": "Spend unconfirmed change when sending transactions.",
+      "default": 1
     },
-    "tx_gas_limit": {
-      "name": "Gas Limit per Transaction",
-      "description": "Parity will reject transactions above {} gas.",
-      "default": 0,
-      "min": 0,
-      "max": 10000000
+    "rootcertificates": {
+      "name": "Root Certificate file",
+      "description": "Specify a custom root certificate to trust for payment requests. Set to '' to disable trusting root certificates.",
+      "default": "-system-"
     },
-    "tx_time_limit": {
-      "name": "Time Limit per Transaction [ms]",
-      "description": "Parity will start banning senders/code when execution exceeds specified limit.",
-      "default": 0,
-      "min": 0,
-      "max": 100000
+    "txconfirmtarget": {
+      "name": "Transaction Fee Confirmation Target",
+      "description": "If paytxfee is not set, include enough fee so that transactions should confirm within <n> blocks",
+      "default": 6,
+      "min": 2,
+      "max": 25
     },
-    "tx_queue_ban_count": {
-      "name": "Ban After",
-      "description": "Parity will start banning senders/code when execution exceeds limit {} time(s).",
-      "default": 1,
-      "min": 0,
-      "max": 1000
+    "usehd": {
+      "name": "Use HD Wallet",
+      "description": "Use hierarchical deterministic (BIP32) key generation. Only has effect during wallet creation/first start.",
+      "default": 1
     },
-    "tx_queue_ban_time": {
-      "name": "Ban For",
-      "description": "Parity will ban senders/code for {} seconds.",
-      "default": 180,
-      "min": 0,
-      "max": 10000
+    "walletrbf": {
+      "name": "Enable Replace By Fee Transactions",
+      "description": "Send transactions with full-RBF opt-in enabled.",
+      "default": 1
     },
-    "tx_queue_size": {
-      "name": "Transaction Queue Size",
-      "description": "Parity will keep/relay at most {} transactions in queue.",
-      "default": 1024,
-      "min": 0,
-      "max": 1000000
+    "upgradewallet": {
+      "name": "Upgrade Wallet Automatically",
+      "description": "Upgrade wallet to latest format on startup.",
+      "default": 1
     },
-    "tx_queue_strategy": {
-      "name": "Transaction Queue Strategy",
-      "description": {
-        "gas_price": "Txs in the queue are ordered by gas price (high gas price = high priority)",
-        "gas": "Txs in the queue are ordered by gas (low gas = high priority)",
-        "gas_factory": "Txs in the queue are ordered by gas/2^15 + gas_price (low gas or high gas+high fee = high priority)"
-      },
-      "default": "gas_price",
-      "values": [
-        "Gas Price [gas_price]",
-        "Gas Only [gas]",
-        "Gas & Gas Price [gas_factor]"
-      ]
+    "wallet": {
+      "name": "Wallet File",
+      "description": "Specify wallet file (within data directory)",
+      "default": "wallet.dat"
     },
-    "extra_data": {
-      "name": "Extra Data",
-      "description": "Blocks that you mine will have '{}' in extra data field.",
+    "walletbroadcast": {
+      "name": "Broadcast Transactions",
+      "description": "Broadcast transactions created by the wallet.",
+      "default": 1
+    },
+    "walletnotify": {
+      "name": "Wallet Notification",
+      "description": "Execute command when a wallet transaction changes (%s in cmd is replaced by TxID)",
       "default": ""
     },
-    "remove_solved": {
-      "name": "Remove Solved Blocks",
-      "description": "Removes solved blocks - faster import speed, but extra solutions to the same work package will go unused.",
-
-      "default": false
-    },
-    "notify_work": {
-      "name": "Notify Work",
-      "description": "URLs to which work package notifications are pushed.",
-      "default": [""]
-    }
-  },
-  "footprint": {
-    "section": "Footprint",
-    "description": "Tune Parity CPU, Memory and Disk usage.",
-    "pruning": {
-      "name": "Tracing",
-      "description": {
-        "fast": "Prune old state data. Maintains journal overlay - fast but extra 50MB of memory used.",
-        "archive": "Keep all state trie data. No pruning.",
-        "auto": "Prune data unless pruning was disable previously for that DB."
-      },
-      "values": [
-        "fast", "archive", "auto"
-      ],
-      "default": "auto"
-    },
-    "pruning_history": {
-      "name": "Pruning History",
-      "description": "Will keep up to {} old state entries.",
-      "default": 1200,
-      "min": 0,
-      "max": 32000
-    },
-    "tracing": {
-      "name": "Tracing",
-      "description": {
-        "on": "Compute and Store tracing data. (Enables trace_* APIs).",
-        "off": "Disable tracing.",
-        "auto": "Disable tracing unless it was enable previously for that DB."
-      },
-      "values": [
-        "on", "off", "auto"
-      ],
-      "default": "auto"
-    },
-    "fat_db": {
-      "name": "Fat DB",
-      "description": {
-        "on": "Enables Fat DB",
-        "off": "Disable Fat DB.",
-        "auto": "Detect if Fat DB was enabled previously."
-      },
-      "values": [
-        "on", "off", "auto"
-      ],
-      "default": "auto"
-    },
-    "scale_verifiers": {
-      "name": "Autoscale Verifiers Threads",
-      "description": "Number of threads will vary dependning on the workload. Not guaranteed to be faster.",
-      "default": false
-    },
-    "num_verifiers": {
-      "name": "Number of Verifiers Threads",
-      "description": "Initial number of verifier threads",
-      "default": 6
-    },
-    "db_compaction": {
-      "name": "DB Compaction Profile",
-      "description": {
-        "hdd": "Increase performance on HDD.",
-        "ssd": "Increase performance on SSD."
-      },
-      "values": ["HDD [hdd]", "SSD [ssd]"],
-      "default": "ssd"
-    },
-    "cache_size_db": {
-      "name": "Database Cache",
-      "description": "Will keep up to {}MB data in Database cache.",
-      "default": 64,
-      "min": 0,
-      "max": 32000
-    },
-    "cache_size_blocks": {
-      "name": "Blockchain Cache",
-      "description": "Will keep up to {}MB data in Blockchain cache.",
-      "default": 8,
-      "min": 0,
-      "max": 32000
-    },
-    "cache_size_queue": {
-      "name": "Import Queue Cache",
-      "description": "Will keep up to {}MB of blocks in block import queue.",
-      "default": 50,
-      "min": 0,
-      "max": 32000
-    },
-    "cache_size_state": {
-      "name": "State Cache",
-      "description": "Will keep up to {}MB data in State cache.",
-      "default": 25,
-      "min": 0,
-      "max": 32000
-    },
-    "cache_size": {
-      "name": "Total Cache Size", 
-      "description": "If defined will never use more then {}MB for all caches. (Overrides other cache settings).",
-      "default": 0,
-      "min": 0,
-      "max": 32000
-    },
-    "fast_and_loose": {
-      "name": "Fast And Loose", 
-      "description": "Significant speed up but unclean exit is unrecoverable (disables DB WAL).",
-      "default": false
-    }
-  },
-  "snapshots": {
-    "section": "Snapshots",
-    "description": "Snapshoting (warp sync) settings.",
-    "disable_periodic": {
-      "name": "Disable Periodic",
-      "description": "Disables automatic periodic snapshots.",
-      "default": false
-    }
-  },
-  "vm": {
-    "section": "VM",
-    "description": "EVM settings.",
-    "jit": {
-      "name": "Enable JIT",
-      "description": "Enables Just In Time compiler. Super-fast for CPU-intensive contracts.",
-      "default": false
-    }
-  },
-  "misc": {
-    "section": "Miscellaneous",
-    "description": "Other uncategorized options.",
-    "logging": {
-      "name": "Logging",
-      "description": "Logging pattern (`<module>=<level>`, e.g. `own_tx=trace`).",
+    "zapwallettxes": {
+      "name": "Zap Wallet Transactions",
+      "description": "Delete all wallet transactions and only recover those parts of the blockchain through -rescan on startup. Value of 1 = keep tx meta data e.g. account owner and payment request information, 2 = drop tx meta data.",
       "default": ""
     },
-    "log_file": {
-      "name": "Log File",
-      "description": "Logs will be stored at {}.",
-      "default": ""
+    "dblogsize": {
+      "name": "DB Log Size",
+      "description": "Flush wallet database activity from memory to disk log every <n> megabytes",
+      "default": 100
     },
-    "color": {
-      "name": "Enable Colors",
-      "description": "Enables colors in logs.",
-      "default": true
+    "flushwallet": {
+      "name": "Flush Wallet Automatically",
+      "description": "Run a thread to flush wallet periodically.",
+      "default": 1
+    },
+    "privdb": {
+      "name": "Private DB",
+      "description": "Set the DB_PRIVATE flag in the wallet db environment.",
+      "default": 1
+    },
+    "walletrejectlongchains": {
+      "name": "Reject Long Transaction Chains",
+      "description": "Wallet will not create transactions that violate mempool chain limits.",
+      "default": 1
     }
   }
 }

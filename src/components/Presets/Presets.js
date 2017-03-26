@@ -7,6 +7,13 @@ import Item from '../Item';
 
 import mining from './mining.json';
 import ports from './ports.json';
+import bandwidth from './bandwidth.json';
+import pruned from './pruned.json';
+import pi from './pi.json';
+import tor from './tor.json';
+import testnet from './testnet.json';
+import regtest from './regtest.json';
+import nosync from './nosync.json';
 
 function toVal (val) {
   return { name: val, value: val };
@@ -25,17 +32,16 @@ function mix (a, b) {
 }
 
 const presets = {
-  'None': null,
-  'Defaults': null,
+  'Defaults': {},
   'Mining': mining,
-  'Non-standard Ports': ports
-  // 'Low Bandwidth': bandwidth
-  // Pruned Node
-  // Raspberry Pi https://github.com/MrChrisJ/fullnode/blob/master/Setup_Guides/bitcoin.conf
-  // Tor Node     https://gist.github.com/MrChrisJ/1098de03ef9588943fc7
-  // Testnet node
-  // Regtest node
-  // Non-syncing node
+  'Non-standard Ports': ports,
+  'Low Bandwidth': bandwidth,
+  'Low Disk Usage': pruned,
+  'Raspberry Pi': pi,
+  'Privacy': tor,
+  'Testnet': testnet,
+  'Regtest': regtest,
+  'Non-syncing': nosync
 };
 
 class Presets extends Component {
@@ -47,19 +53,13 @@ class Presets extends Component {
   };
 
   static defaultProps = {
-    preset: 'None'
+    preset: 'Defaults'
   };
 
   change = (preset) => {
-    if (preset === 'None') {
+    if (!window.confirm('Do you want to overwrite current config?')) {
+      this.forceUpdate();
       return;
-    }
-
-    if (this.props.preset === 'None') {
-      if (!window.confirm('Do you want to overwrite current config?')) {
-        this.forceUpdate();
-        return;
-      }
     }
 
     const data = mix(clone(this.props.defaults), clone(presets[preset] || {}));

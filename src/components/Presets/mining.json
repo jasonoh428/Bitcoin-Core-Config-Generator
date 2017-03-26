@@ -1,27 +1,15 @@
 {
-  "footprint": {
-    "cache_size": 256
+  "core": {
+    "dbcache": 4000,
+    "maxorphantx": 1000,
+    "maxmempool": 1000,
+    "blockreconstructionextratxn": 1000
   },
-  "dapps": {
-    "disable": true
-  },
-  "signer": {
-    "disable": true
-  },
-  "ipc": {
-    "disable": true
-  },
-  "network": {
-    "min_peers": 50,
-    "max_peers": 100
+  "debug": {
+    "maxsigcachesize": 100
   },
   "mining": {
-    "force_sealing": true,
-    "reseal_on_txs": "all",
-    "reseal_min_period": 4000,
-    "tx_queue_size": 2048
-  },
-  "misc": {
-    "logging": "miner=trace,own_tx=trace"
+    "blockmaxweight": 4000000,
+    "blockmaxsize": 1000000
   }
 }
