@@ -22,7 +22,6 @@ function loadSettings () {
   } catch (e) {
   }
 
-  defaultSettings.parity.chain = 'ropsten';
   return defaultSettings;
 }
 

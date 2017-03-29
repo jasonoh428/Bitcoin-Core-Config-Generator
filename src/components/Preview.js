@@ -72,7 +72,7 @@ function toConf (settings, defaults) {
         });
 
       if (vals.length) {
-        acc.push(`\n[${section}]`);
+        acc.push(`\n# [${section}]`);
       }
 
       return acc.concat(vals);

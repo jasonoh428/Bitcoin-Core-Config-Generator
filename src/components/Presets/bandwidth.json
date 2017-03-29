@@ -1,0 +1,7 @@
+{
+  "core": {
+    "blocksonly": true,
+    "maxconnections": 20,
+    "maxuploadtarget": 500
+  }
+}

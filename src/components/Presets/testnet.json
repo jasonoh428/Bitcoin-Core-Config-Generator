@@ -1,0 +1,7 @@
+{
+  "debug": {
+	"debug": 1,
+	"logips": 1,
+	"testnet": 1
+  }
+}

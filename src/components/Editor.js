@@ -24,124 +24,159 @@ class Editor extends Component {
   render () {
     const {settings} = this.props;
     const platform = settings.__internal.platform;
-    const base = settings.parity.base_path !== '$BASE' ? settings.parity.base_path : basePath(platform);
+    const base = settings.core.datadir !== '$BASE' ? settings.core.datadir : basePath(platform);
 
-    const isOffline = settings.parity.mode === 'off';
     return (
       <div>
         { this.select('__internal', 'platform') }
 
-        <Section title={data.parity.section} description={data.parity.description}>
-          { this.select('parity', 'chain') }
-          { this.select('parity', 'mode') }
-          { this.number('parity', 'mode_timeout', settings.parity.mode !== 'active' && !isOffline) }
-          { this.number('parity', 'mode_alarm', settings.parity.mode === 'passive') }
-          { this.select('parity', 'auto_update') }
-          { this.select('parity', 'release_track', settings.parity.auto_update !== 'none') }
-          { this.flag('parity', 'no_download') }
-          { this.flag('parity', 'no_consensus') }
-          { this.path('parity', 'base_path', base, platform) }
-          { this.path('parity', 'db_path', base, platform) }
-          { this.path('parity', 'keys_path', base, platform) }
-          { this.text('parity', 'identity') }
+        <Section title={data.core.section} description={data.core.description}>
+          { this.text('core', 'alertnotify') }
+          { this.text('core', 'blocknotify') }
+          { this.flag('core', 'blocksonly') }
+          { this.text('core', 'assumevalid') }
+          { this.path('core', 'conf', base, platform) }
+          { this.flag('core', 'daemon') }
+          { this.path('core', 'datadir', base, platform) }
+          { this.number('core', 'dbcache') }
+          { this.flag('core', 'feefilter') }
+          { this.text('core', 'loadblock') }
+          { this.number('core', 'maxorphantx') }
+          { this.number('core', 'maxmempool') }
+          { this.number('core', 'mempoolexpiry') }
+          { this.number('core', 'blockreconstructionextratxn') }
+          { this.number('core', 'par') }
+          { this.text('core', 'pid') }
+          { this.number('core', 'prune') }
+          { this.flag('core', 'reindex-chainstate') }
+          { this.flag('core', 'reindex') }
+          { this.flag('core', 'sysperms') }
+          { this.flag('core', 'txindex') }
         </Section>
-        <Section title={data.account.section} description={data.account.description}>
-          { this.list('account', 'unlock') }
-          { this.text('account', 'password') }
-          { this.number('account', 'keys_iterations') }
-        </Section>
-        <Section title={data.ui.section} description={data.ui.description}>
-          { this.flag('ui', 'disable') }
-          { this.flag('ui', 'force', !settings.ui.disable) }
-          { this.number('ui', 'port', !settings.ui.disable) }
-          { this.text('ui', 'interface', !settings.ui.disable) }
-          { this.path('ui', 'path', base, platform, !settings.ui.disable) }
-        </Section>
-        <Section title={data.network.section} description={data.network.description}>
-          { this.flag('network', 'warp', !isOffline) }
-          { this.number('network', 'port', !isOffline) }
-          { this.number('network', 'min_peers', !isOffline) }
-          { this.number('network', 'max_peers', !isOffline) }
-          { this.number('network', 'snapshot_peers', !isOffline) }
-          { this.number('network', 'max_pending_peers', !isOffline) }
-          { this.select('network', 'nat', !isOffline) }
-          { this.number('network', 'id', !isOffline) }
-          { this.list('network', 'bootnodes', !isOffline) }
-          { this.flag('network', 'discovery', !isOffline) }
-          { this.list('network', 'reserved_peers', !isOffline) }
-          { this.flag('network', 'reserved_only', !isOffline) }
-          { this.select('network', 'allow_ips', !isOffline) }
-        </Section>
-        <Section title={data.rpc.section} description={data.rpc.description}>
-          { this.flag('rpc', 'disable') }
-          { this.number('rpc', 'port', !settings.rpc.disable) }
-          { this.text('rpc', 'interface', !settings.rpc.disable) }
-          { this.text('rpc', 'cors', !settings.rpc.disable) }
-          { this.list('rpc', 'hosts', !settings.rpc.disable) }
-          { this.multiselect('rpc', 'apis', !settings.rpc.disable) }
-        </Section>
-        <Section title={data.ipc.section} description={data.ipc.description}>
-          { this.flag('ipc', 'disable') }
-          { this.path('ipc', 'path', base, platform, !settings.ipc.disable) }
-          { this.multiselect('ipc', 'apis', !settings.ipc.disable) }
-        </Section>
-        <Section title={data.dapps.section} description={data.dapps.description}>
-          { this.flag('dapps', 'disable') }
-          { this.number('dapps', 'port', !settings.dapps.disable) }
-          { this.text('dapps', 'interface', !settings.dapps.disable) }
-          { this.list('dapps', 'hosts', !settings.dapps.disable) }
-          { this.path('dapps', 'path', base, platform, !settings.dapps.disable) }
-          { this.text('dapps', 'user', !settings.dapps.disable) }
-          { this.text('dapps', 'password', settings.dapps.user && !settings.dapps.disable) }
+        <Section title={data.debug.section} description={data.debug.description}>
+          { this.text('debug', 'uacomment') }
+          { this.number('debug', 'checkblocks') }
+          { this.number('debug', 'checklevel') }
+          { this.number('debug', 'checkmempool') }
+          { this.flag('debug', 'checkpoints') }
+          { this.flag('debug', 'disablesafemode') }
+          { this.flag('debug', 'testsafemode') }
+          { this.number('debug', 'dropmessagestest') }
+          { this.number('debug', 'fuzzmessagestest') }
+          { this.flag('debug', 'stopafterblockimport') }
+          { this.number('debug', 'limitancestorcount') }
+          { this.number('debug', 'limitancestorsize') }
+          { this.number('debug', 'limitdescendantcount') }
+          { this.number('debug', 'limitdescendantsize') }
+          { this.text('debug', 'bip9params') }
+          { this.select('debug', 'debug') }
+          { this.flag('debug', 'logips') }
+          { this.flag('debug', 'logtimestamps') }
+          { this.flag('debug', 'logtimemicros') }
+          { this.number('debug', 'mocktime') }
+          { this.number('debug', 'maxsigcachesize') }
+          { this.number('debug', 'maxtipage') }
+          { this.decimal('debug', 'maxtxfee') }
+          { this.flag('debug', 'printtoconsole') }
+          { this.text('debug', 'promiscuousmempoolflags') }
+          { this.flag('debug', 'shrinkdebugfile') }
+          { this.flag('debug', 'testnet') }
+          { this.flag('debug', 'regtest') }
         </Section>
         <Section title={data.mining.section} description={data.mining.description}>
-          { this.text('mining', 'author') }
-          { this.text('mining', 'engine_signer') }
-          { this.text('mining', 'extra_data') }
-          { this.flag('mining', 'force_sealing') }
-          { this.select('mining', 'reseal_on_txs') }
-          { this.number('mining', 'reseal_min_period') }
-          { this.number('mining', 'work_queue_size') }
-          { this.flag('mining', 'remove_solved') }
-          { this.select('mining', 'relay_set') }
-          { this.number('mining', 'usd_per_tx') }
-          { this.text('mining', 'usd_per_eth') }
-          { this.text('mining', 'price_update_period') }
-          { this.number('mining', 'gas_floor_target') }
-          { this.number('mining', 'gas_cap') }
-          { this.number('mining', 'tx_gas_limit') }
-          { this.number('mining', 'tx_time_limit') }
-          { this.number('mining', 'tx_queue_size') }
-          { this.select('mining', 'tx_queue_strategy') }
-          { this.number('mining', 'tx_queue_ban_count') }
-          { this.number('mining', 'tx_queue_ban_time') }
-          { this.list('mining', 'notify_work') }
+          { this.number('mining', 'blockmaxweight') }
+          { this.number('mining', 'blockmaxsize') }
+          { this.decimal('mining', 'blockmintxfee') }
+          { this.text('mining', 'blockversion') }
         </Section>
-        <Section title={data.footprint.section} description={data.footprint.description}>
-          { this.select('footprint', 'tracing') }
-          { this.select('footprint', 'pruning') }
-          { this.number('footprint', 'pruning_history', settings.footprint.pruning !== 'archive') }
-          { this.select('footprint', 'fat_db') }
-          { this.flag('footprint', 'scale_verifiers') }
-          { this.number('footprint', 'num_verifiers', settings.footprint.scale_verifiers) }
-          { this.select('footprint', 'db_compaction') }
-          { this.number('footprint', 'cache_size') }
-          { this.number('footprint', 'cache_size_db', !settings.footprint.cache_size) }
-          { this.number('footprint', 'cache_size_blocks', !settings.footprint.cache_size) }
-          { this.number('footprint', 'cache_size_queue', !settings.footprint.cache_size) }
-          { this.number('footprint', 'cache_size_state', !settings.footprint.cache_size) }
-          { this.flag('footprint', 'fast_and_loose') }
+        <Section title={data.network.section} description={data.network.description}>
+          { this.text('network', 'addnode') }
+          { this.number('network', 'banscore') }
+          { this.number('network', 'bantime') }
+          { this.text('network', 'bind') }
+          { this.text('network', 'connect') }
+          { this.flag('network', 'discover') }
+          { this.flag('network', 'dns') }
+          { this.flag('network', 'dnsseed') }
+          { this.text('network', 'externalip') }
+          { this.flag('network', 'forcednsseed') }
+          { this.flag('network', 'listen') }
+          { this.flag('network', 'listenonion') }
+          { this.number('network', 'maxconnections') }
+          { this.number('network', 'maxreceivebuffer') }
+          { this.number('network', 'maxsendbuffer') }
+          { this.number('network', 'maxtimeadjustment') }
+          { this.text('network', 'onion') }
+          { this.select('network', 'onlynet') }
+          { this.flag('network', 'peerbloomfilters') }
+          { this.number('network', 'port') }
+          { this.text('network', 'proxy') }
+          { this.flag('network', 'proxyrandomize') }
+          { this.text('network', 'seednode') }
+          { this.number('network', 'timeout') }
+          { this.text('network', 'torcontrol') }
+          { this.text('network', 'torpassword') }
+          { this.flag('network', 'upnp') }
+          { this.text('network', 'whitebind') }
+          { this.text('network', 'whitelist') }
+          { this.number('network', 'maxuploadtarget') }
         </Section>
-        <Section title={data.snapshots.section} description={data.snapshots.description}>
-          { this.flag('snapshots', 'disable_periodic') }
+        <Section title={data.relay.section} description={data.relay.description}>
+          { this.flag('relay', 'acceptnonstdtxn') }
+          { this.decimal('relay', 'incrementalrelayfee') }
+          { this.decimal('relay', 'dustrelayfee') }
+          { this.number('relay', 'bytespersigop') }
+          { this.flag('relay', 'datacarrier') }
+          { this.number('relay', 'datacarriersize') }
+          { this.flag('relay', 'mempoolreplacement') }
+          { this.flag('relay', 'permitbaremultisig') }
+          { this.decimal('relay', 'minrelaytxfee') }
+          { this.flag('relay', 'whitelistrelay') }
+          { this.flag('relay', 'whitelistforcerelay') }
         </Section>
-        <Section title={data.vm.section} description={data.vm.description}>
-          { this.flag('vm', 'jit') }
+        <Section title={data.rpc.section} description={data.rpc.description}>
+          { this.flag('rpc', 'server') }
+          { this.flag('rpc', 'rest') }
+          { this.text('rpc', 'rpcbind') }
+          { this.path('rpc', 'rpccookiefile', base, platform) }
+          { this.text('rpc', 'rpcuser') }
+          { this.text('rpc', 'rpcpassword') }
+          { this.text('rpc', 'rpcauth') }
+          { this.number('rpc', 'rpcport') }
+          { this.text('rpc', 'rpcallowip') }
+          { this.number('rpc', 'rpcthreads') }
+          { this.number('rpc', 'rpcworkqueue') }
+          { this.select('rpc', 'rpcserialversion') }
+          { this.number('rpc', 'rpcservertimeout') }
         </Section>
-        <Section title={data.misc.section} description={data.misc.description}>
-          { this.text('misc', 'logging') }
-          { this.text('misc', 'log_file') }
-          { this.flag('misc', 'color') }
+        <Section title={data.wallet.section} description={data.wallet.description}>
+          { this.flag('wallet', 'disablewallet') }
+          { this.number('wallet', 'keypool') }
+          { this.decimal('wallet', 'fallbackfee') }
+          { this.decimal('wallet', 'mintxfee') }
+          { this.decimal('wallet', 'paytxfee') }
+          { this.flag('wallet', 'rescan') }
+          { this.flag('wallet', 'salvagewallet') }
+          { this.flag('wallet', 'spendzeroconfchange') }
+          { this.text('wallet', 'rootcertificates') }
+          { this.number('wallet', 'txconfirmtarget') }
+          { this.flag('wallet', 'usehd') }
+          { this.flag('wallet', 'walletrbf') }
+          { this.flag('wallet', 'upgradewallet') }
+          { this.text('wallet', 'wallet') }
+          { this.flag('wallet', 'walletbroadcast') }
+          { this.text('wallet', 'walletnotify') }
+          { this.text('wallet', 'zapwallettxes') }
+          { this.number('wallet', 'dblogsize') }
+          { this.flag('wallet', 'flushwallet') }
+          { this.flag('wallet', 'privdb') }
+          { this.flag('wallet', 'walletrejectlongchains') }
+        </Section>
+        <Section title={data.zeromq.section} description={data.zeromq.description}>
+          { this.text('zeromq', 'zmqpubhashblock') }
+          { this.text('zeromq', 'zmqpubhashtx') }
+          { this.text('zeromq', 'zmqpubrawblock') }
+          { this.text('zeromq', 'zmqpubrawtx') }
         </Section>
       </div>
     );
@@ -242,6 +277,35 @@ class Editor extends Component {
     );
   }
 
+  decimal (section, prop, isEnabled = true) {
+    check(section, prop);
+    const {settings} = this.props;
+    const value = or(settings[section][prop], data[section][prop].default);
+    const description = fillDescription(data[section][prop].description, value);
+
+    return (
+      <Item
+        title={data[section][prop].name}
+        description={description}
+        disabled={!isEnabled}
+        >
+        <div className='mdl-textfield mdl-js-textfield mdl-textfield--floating-label'>
+          <input
+            className='mdl-textfield__input'
+            type='number'
+            step='0.00000001'
+            value={value || 0}
+            onChange={(ev) => this.change(settings[section], prop)(Number(ev.target.value))}
+            min={data[section][prop].min}
+            max={data[section][prop].max}
+            disabled={!isEnabled}
+            />
+          <span className='mdl-textfield__error'>Please provide a valid number (min: {data[section][prop].min}, max: {data[section][prop].max})</span>
+        </div>
+      </Item>
+    );
+  }
+
   path (section, prop, base, platform, isEnabled = true) {
     return this.text(section, prop, isEnabled, value => {
       if (!value) {
@@ -300,7 +364,7 @@ class Editor extends Component {
             className='mdl-switch__input'
             checked={value}
             disabled={!isEnabled}
-            onChange={(ev) => this.change(settings[section], prop)(ev.target.checked)}
+            onChange={(ev) => this.change(settings[section], prop)(ev.target.checked ? 1 : 0)}
             />
           <span className='mdl-switch__label' />
         </label>
