@@ -19,8 +19,12 @@ function toVal (val) {
   return { name: val, value: val };
 }
 
+// Determine which value to use, the default (a) or non-default (b)
 function mix (a, b) {
   if (typeof a !== 'object' || typeof b !== 'object') {
+    if (b !== undefined) {
+      return b;
+    }
     return b || a;
   }
 
