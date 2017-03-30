@@ -222,14 +222,14 @@
     "onlynet": {
       "name": "Only Use Specific Network",
       "description": {
-        "": "Use every available network",
+        "any": "Use every available network",
         "ipv4": "Only connect to peers via IPV4",
         "ipv6": "Only connect to peers via IPV6.",
         "onion": "Only connect to peers via Tor."
       },
-      "default": "",
+      "default": "any",
       "values": [
-        "Any []",
+        "Any [any]",
         "IPV4 [ipv4]",
         "IPV6 [ipv6]",
         "Tor [onion]"

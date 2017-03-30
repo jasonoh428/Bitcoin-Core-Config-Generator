@@ -67,7 +67,7 @@ function toConf (settings, defaults) {
         .map(key => {
           const val = settings[section][key];
           const comment = toComment(settings, section, key, val);
-          const setting = `${key} = ${toVal(val)}`;
+          const setting = `${key}=${toVal(val)}`;
           return `# ${comment}\n${setting}`;
         });
 
@@ -82,7 +82,7 @@ function toConf (settings, defaults) {
     conf.push(
       '',
       '',
-      '# All values you use are defaults. Config is not needed.'
+      '# All values are currently set to defaults. Config is not needed.'
     );
   }
 
@@ -90,15 +90,14 @@ function toConf (settings, defaults) {
   const configPath = joinPath([basePath(platform), 'bitcoin.conf'], platform);
   conf.unshift(
     '# This config should be placed in following path:',
-    `#   ${configPath}`,
+    `# ${configPath}`,
   );
 
   return conf.join('\n');
 }
 
 function isEqual (a, b) {
-  // TODO [todr] optimize
-  return JSON.stringify(a) === JSON.stringify(b);
+  return Object.is(a, b);
 }
 
 function toComment (settings, section, key, value) {
@@ -127,7 +126,9 @@ function toVal (val) {
 
   // Escape windows paths
   val = val ? val.replace(/\\([^\\])/g, '\\\\$1') : val;
-  return `"${val}"`;
+  // Escape spaces in paths
+  val = val.replace(/ /g, '\\ ');
+  return `${val}`;
 }
 
 export default Preview;
