@@ -12,7 +12,7 @@ function Item ({title, description, children, disabled, large}) {
       >
       <span className='mdl-list__item-primary-content'>
         <span>{title}</span>
-        <span className='mdl-list__item-sub-title'>
+        <span className='mdl-list__item-sub-title' style={{overflow: 'auto', height: '100%'}}>
           {description}
         </span>
       </span>
