@@ -621,7 +621,7 @@
     "server": {
       "name": "Enable RPC Server",
       "description": "Accept command line and JSON-RPC commands.",
-      "default": 1
+      "default": 0
     },
     "rest": {
       "name": "Enable REST API",
