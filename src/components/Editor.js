@@ -38,12 +38,14 @@ class Editor extends Component {
           { this.path('core', 'conf', base, platform) }
           { this.flag('core', 'daemon') }
           { this.path('core', 'datadir', base, platform) }
+          { this.number('core', 'dbbatchsize') }
           { this.number('core', 'dbcache') }
           { this.flag('core', 'feefilter') }
           { this.text('core', 'loadblock') }
           { this.number('core', 'maxorphantx') }
           { this.number('core', 'maxmempool') }
           { this.number('core', 'mempoolexpiry') }
+          { this.flag('core', 'persistmempool') }
           { this.number('core', 'blockreconstructionextratxn') }
           { this.number('core', 'par') }
           { this.text('core', 'pid') }
@@ -63,13 +65,16 @@ class Editor extends Component {
           { this.flag('debug', 'testsafemode') }
           { this.number('debug', 'dropmessagestest') }
           { this.number('debug', 'fuzzmessagestest') }
+          { this.decimal('debug', 'dbcrashratio') }
           { this.flag('debug', 'stopafterblockimport') }
+          { this.number('debug', 'stopatheight') }
           { this.number('debug', 'limitancestorcount') }
           { this.number('debug', 'limitancestorsize') }
           { this.number('debug', 'limitdescendantcount') }
           { this.number('debug', 'limitdescendantsize') }
-          { this.text('debug', 'bip9params') }
+          { this.text('debug', 'vbparams') }
           { this.select('debug', 'debug') }
+          { this.select('debug', 'debugexclude') }
           { this.flag('debug', 'logips') }
           { this.flag('debug', 'logtimestamps') }
           { this.flag('debug', 'logtimemicros') }
@@ -78,6 +83,7 @@ class Editor extends Component {
           { this.number('debug', 'maxtipage') }
           { this.decimal('debug', 'maxtxfee') }
           { this.flag('debug', 'printtoconsole') }
+          { this.flag('debug', 'printpriority') }
           { this.text('debug', 'promiscuousmempoolflags') }
           { this.flag('debug', 'shrinkdebugfile') }
           { this.flag('debug', 'testnet') }
@@ -153,6 +159,7 @@ class Editor extends Component {
           { this.flag('wallet', 'disablewallet') }
           { this.number('wallet', 'keypool') }
           { this.decimal('wallet', 'fallbackfee') }
+          { this.decimal('wallet', 'discardfee') }
           { this.decimal('wallet', 'mintxfee') }
           { this.decimal('wallet', 'paytxfee') }
           { this.flag('wallet', 'rescan') }
