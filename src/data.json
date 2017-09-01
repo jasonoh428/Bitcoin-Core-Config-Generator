@@ -49,6 +49,12 @@
       "description": "Specify a non-default location to store blockchain and other data.",
       "default": "$BASE"
     },
+    "dbbatchsize": {
+      "name": "DB Batch Size",
+      "description": "Maximum database write batch size in bytes.",
+      "default": 16777216,
+      "min": 1024
+    },
     "dbcache": {
       "name": "DB Cache Size",
       "description": "Set database cache size in megabytes; machines sync faster with a larger cache. Recommend setting as high as possible based upon machine's available RAM.",
@@ -81,6 +87,11 @@
       "description": "Do not keep transactions in the mempool longer than <n> hours.",
       "default": 336,
       "min": 1
+    },
+    "persistmempool": {
+      "name": "Persist Mempool",
+      "description": "Save the mempool on shutdown and load on restart.",
+      "default": 1
     },
     "blockreconstructionextratxn": {
       "name": "Block Reconstruction Transactions",
@@ -374,9 +385,21 @@
       "description": "Randomly fuzz 1 of every <n> network messages.",
       "default": ""
     },
+    "dbcrashratio": {
+      "name": "DB Crash Ratio",
+      "description": "Randomly crash while writing data at a given rate between 0 and 1.",
+      "default": 0,
+      "min": 0,
+      "max": 1
+    },
     "stopafterblockimport": {
       "name": "Stop After Block Import",
       "description": "Stop running after importing blocks from disk.",
+      "default": 0
+    },
+    "stopatheight": {
+      "name": "Stop At Height",
+      "description": "Stop running after reaching the given height in the main chain.",
       "default": 0
     },
     "limitancestorcount": {
@@ -403,9 +426,9 @@
       "default": 101,
       "min": 0
     },
-    "bip9params": {
-      "name": "BIP9 Deployment Params",
-      "description": "Use given start/end times for specified BIP9 deployment. Regtest mode only, in format <deployment:start:end>. Can be set multiple times.",
+    "vbparams": {
+      "name": "Version Bits Deployment Params",
+      "description": "Use given start/end times for specified version bits deployment. Regtest mode only, in format <deployment:start:end>. Can be set multiple times.",
       "default": ""
     },
     "debug": {
@@ -439,6 +462,56 @@
       "values": [
         "Disable [0]",
         "Enable All [1]",
+        "Address Manager [addrman]",
+        "Alerts [alert]",
+        "Benchmarking [bench]",
+        "Compact Blocks [cmpctblock]",
+        "CoinDB [coindb]",
+        "Database [db]",
+        "HTTP [http]",
+        "LevelDB [leveldb]",
+        "LibEvent [libevent]",
+        "Locking [lock]",
+        "Mempool [mempool]",
+        "Mempool Rejection [mempoolrej]",
+        "Networking [net]",
+        "Proxy [proxy]",
+        "Pruning [prune]",
+        "Random [rand]",
+        "Reinding [reindex]",
+        "RPC [rpc]",
+        "Coin Selection [selectcoins]",
+        "Tor [tor]",
+        "ZeroMQ [zmq]"
+      ]
+    },
+    "debugexclude": {
+      "name": "Exclude Debug Logging",
+      "description": {
+        "addrman": "Exclude address manager logging.",
+        "alert": "Exclude alert logging",
+        "bench": "Exclude benchmark logging",
+        "cmpctblock": "Exclude compact block logging",
+        "coindb": "Exclude coin database logging",
+        "db": "Exclude database logging",
+        "http": "Exclude HTTP logging",
+        "leveldb": "Exclude leveldb logging",
+        "libevent": "Exclude libevent logging",
+        "lock": "Exclude lock logging",
+        "mempool": "Exclude mempool logging",
+        "mempoolrej": "Exclude mempool rejection logging",
+        "net": "Exclude network logging",
+        "proxy": "Exclude proxy logging",
+        "prune": "Exclude pruning logging",
+        "rand": "Exclude randomness logging",
+        "reindex": "Exclude reindexing logging",
+        "rpc": "Exclude RPC logging",
+        "selectcoins": "Exclude coin selection logging",
+        "tor": "Exclude Tor logging",
+        "zmq": "Exclude ZeroMQ logging"
+      },
+      "default": "",
+      "values": [
         "Address Manager [addrman]",
         "Alerts [alert]",
         "Benchmarking [bench]",
@@ -503,6 +576,11 @@
     "printtoconsole": {
       "name": "Output to Console",
       "description": "Send trace/debug info to console instead of debug.log.",
+      "default": 0
+    },
+    "printpriority": {
+      "name": "Print Priority",
+      "description": "Log transaction fee per kB when mining blocks.",
       "default": 0
     },
     "promiscuousmempoolflags": {
@@ -711,7 +789,14 @@
     "fallbackfee": {
       "name": "Fallback Transaction Fee",
       "description": "A fee rate (in BTC/kB) that will be used when fee estimation has insufficient data",
-      "default": 0.0002
+      "default": 0.0002,
+      "min": 0
+    },
+    "discardfee": {
+      "name": "Discard Change Fee",
+      "description": "The fee rate (in BTC/kB) that indicates your tolerance for discarding change by adding it to the fee",
+      "default": 0.0001,
+      "min": 0
     },
     "mintxfee": {
       "name": "Min Transaction Fee",
