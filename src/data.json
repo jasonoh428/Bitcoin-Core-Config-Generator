@@ -79,7 +79,7 @@
     },
     "maxmempool": {
       "name": "Max Mempool Size",
-      "description": "Keep the transaction memory pool below <n> megabytess.",
+      "description": "Keep the transaction memory pool below <n> megabytes.",
       "default": 300
     },
     "mempoolexpiry": {
