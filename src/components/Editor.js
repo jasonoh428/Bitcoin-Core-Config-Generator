@@ -46,6 +46,7 @@ class Editor extends Component {
           { this.number('core', 'maxmempool') }
           { this.number('core', 'mempoolexpiry') }
           { this.flag('core', 'persistmempool') }
+          { this.text('core', 'minimumchainwork') }
           { this.number('core', 'blockreconstructionextratxn') }
           { this.number('core', 'par') }
           { this.text('core', 'pid') }
@@ -75,6 +76,7 @@ class Editor extends Component {
           { this.text('debug', 'vbparams') }
           { this.select('debug', 'debug') }
           { this.select('debug', 'debugexclude') }
+          { this.path('debug', 'debuglogfile', base, platform) }
           { this.flag('debug', 'logips') }
           { this.flag('debug', 'logtimestamps') }
           { this.flag('debug', 'logtimemicros') }
@@ -141,6 +143,7 @@ class Editor extends Component {
           { this.flag('relay', 'whitelistforcerelay') }
         </Section>
         <Section title={data.rpc.section} description={data.rpc.description}>
+          { this.flag('rpc', 'deprecatedrpc') }
           { this.flag('rpc', 'server') }
           { this.flag('rpc', 'rest') }
           { this.text('rpc', 'rpcbind') }
@@ -156,6 +159,8 @@ class Editor extends Component {
           { this.number('rpc', 'rpcservertimeout') }
         </Section>
         <Section title={data.wallet.section} description={data.wallet.description}>
+          { this.select('wallet', 'addresstype') }
+          { this.select('wallet', 'changetype') }
           { this.flag('wallet', 'disablewallet') }
           { this.number('wallet', 'keypool') }
           { this.decimal('wallet', 'fallbackfee') }
@@ -167,10 +172,10 @@ class Editor extends Component {
           { this.flag('wallet', 'spendzeroconfchange') }
           { this.text('wallet', 'rootcertificates') }
           { this.number('wallet', 'txconfirmtarget') }
-          { this.flag('wallet', 'usehd') }
           { this.flag('wallet', 'walletrbf') }
           { this.flag('wallet', 'upgradewallet') }
           { this.text('wallet', 'wallet') }
+          { this.path('wallet', 'walletdir', base, platform) }
           { this.flag('wallet', 'walletbroadcast') }
           { this.text('wallet', 'walletnotify') }
           { this.text('wallet', 'zapwallettxes') }
