@@ -88,6 +88,11 @@
       "default": 336,
       "min": 1
     },
+    "minimumchainwork": {
+      "name": "Minimum Chain Work",
+      "description": "The (hex value) minimum amount of cumulative proof of work required.",
+      "default": "0x000000000000000000000000000000000000000000f91c579d57cad4bc5278cc"
+    },
     "persistmempool": {
       "name": "Persist Mempool",
       "description": "Save the mempool on shutdown and load on restart.",
@@ -368,7 +373,7 @@
     "disablesafemode": {
       "name": "Disable Safe Mode",
       "description": "Disable safemode, override a real safe mode event.",
-      "default": 0
+      "default": 1
     },
     "testsafemode": {
       "name": "Force Safe Mode",
@@ -488,6 +493,7 @@
     "debugexclude": {
       "name": "Exclude Debug Logging",
       "description": {
+        "0": "Don't exclude any logging.",
         "addrman": "Exclude address manager logging.",
         "alert": "Exclude alert logging",
         "bench": "Exclude benchmark logging",
@@ -510,8 +516,9 @@
         "tor": "Exclude Tor logging",
         "zmq": "Exclude ZeroMQ logging"
       },
-      "default": "",
+      "default": "0",
       "values": [
+        "No Exclusions [0]",
         "Address Manager [addrman]",
         "Alerts [alert]",
         "Benchmarking [bench]",
@@ -534,6 +541,11 @@
         "Tor [tor]",
         "ZeroMQ [zmq]"
       ]
+    },
+    "debuglogfile": {
+      "name": "Debug Log File",
+      "description": "Location of the debug log",
+      "default": "$BASE/debug.log"
     },
     "logips": {
       "name": "Log IP Addresses",
@@ -696,6 +708,11 @@
   "rpc": {
     "section": "RPC API",
     "description": "Configure security and performance options for accessing the node's RPC interface.",
+    "deprecatedrpc": {
+      "name": "Deprecated RPC Commands",
+      "description": "Respond to queries that use deprecated RPC commands.",
+      "default": 0
+    },
     "server": {
       "name": "Enable RPC Server",
       "description": "Accept command line and JSON-RPC commands.",
@@ -775,6 +792,34 @@
   "wallet": {
     "section": "Wallet",
     "description": "Configure behavior of the node's wallet.",
+    "addresstype": {
+      "name": "Address Type",
+      "description": {
+        "legacy": "Legacy",
+        "p2sh-segwit": "P2SH Wrapped SegWit",
+        "bech32": "Bech32"
+      },
+      "default": "p2sh-segwit",
+      "values": [
+        "Legacy [legacy]",
+        "P2SH Wrapped SegWit [p2sh-segwit]",
+        "Bech32 [bech32]"
+      ]
+    },
+    "changetype": {
+      "name": "Change Address Type",
+      "description": {
+        "legacy": "Legacy",
+        "p2sh-segwit": "P2SH Wrapped SegWit",
+        "bech32": "Bech32"
+      },
+      "default": "p2sh-segwit",
+      "values": [
+        "Legacy [legacy]",
+        "P2SH Wrapped SegWit [p2sh-segwit]",
+        "Bech32 [bech32]"
+      ]
+    },
     "disablewallet": {
       "name": "Disable Wallet",
       "description": "Do not load the wallet and disable wallet RPC calls.",
@@ -783,7 +828,7 @@
     "keypool": {
       "name": "Key Pool Size",
       "description": "Set key pool size to <n>. Recommended to use a large number for high volume non-HD wallets.",
-      "default": 100,
+      "default": 1000,
       "min": 10
     },
     "fallbackfee": {
@@ -826,7 +871,7 @@
     },
     "rootcertificates": {
       "name": "Root Certificate file",
-      "description": "Specify a custom root certificate to trust for payment requests. Set to '' to disable trusting root certificates.",
+      "description": "Specify a custom root certificate to trust for payment requests. Delete value to disable trusting root certificates.",
       "default": "-system-"
     },
     "txconfirmtarget": {
@@ -835,11 +880,6 @@
       "default": 6,
       "min": 2,
       "max": 25
-    },
-    "usehd": {
-      "name": "Use HD Wallet",
-      "description": "Use hierarchical deterministic (BIP32) key generation. Only has effect during wallet creation/first start.",
-      "default": 1
     },
     "walletrbf": {
       "name": "Enable Replace By Fee Transactions",
@@ -855,6 +895,11 @@
       "name": "Wallet File",
       "description": "Specify wallet file (within data directory)",
       "default": "wallet.dat"
+    },
+    "walletdir": {
+      "name": "Wallet Data Storage Location",
+      "description": "Specify a non-default location to store wallet data.",
+      "default": "$BASE/wallets"
     },
     "walletbroadcast": {
       "name": "Broadcast Transactions",
