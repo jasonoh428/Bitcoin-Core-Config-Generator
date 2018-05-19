@@ -66,12 +66,16 @@ function toConf (settings, defaults) {
         .filter(key => !isEqual(settings[section][key], defaults[section][key]))
         .map(key => {
           const val = settings[section][key];
+          if (val === undefined || val.length === 0) {
+            return "";
+          }
           const comment = toComment(settings, section, key, val);
-          const setting = `${key}=${toVal(val)}`;
+          const setting = `${toLine(key, val)}`;
           return `# ${comment}\n${setting}`;
-        });
+        })
+        .filter(val => val !== "");
 
-      if (vals.length) {
+      if (vals.length > 0) {
         acc.push(`\n# [${section}]`);
       }
 
@@ -107,29 +111,42 @@ function toComment (settings, section, key, value) {
   data[section][key] = data[section][key] || {};
 
   if (typeof data[section][key].description === 'object') {
-    return fillDescription(data[section][key].description[value], value);
+    if (value === undefined || value.length === 0) {
+      return;
+    }
+    var description = fillDescription(data[section][key].description, value);
+    // add a # after each newline except the last
+    description = description.replace(/(\n)/gm,"\n# ");
+    return description.substring(0, description.length - 2);
   }
   return fillDescription(data[section][key].description, value);
 }
 
-function toVal (val) {
+function toLine (key, val) {
   if (typeof val === 'boolean') {
-    return `${val}`;
+    return `${key}=${val}`;
   }
 
   if (typeof val === 'number') {
-    return `${val}`;
+    return `${key}=${val}`;
   }
 
+  // multi-select values should each get their own line in the conf file
   if (Array.isArray(val)) {
-    return `[${val.map(v => toVal(v)).join(', ')}]`;
+    var formatted = "";
+    for (var i in val) {
+      if ({}.hasOwnProperty.call(val, i)) {
+        formatted += toLine(key, val[i]) + "\n";
+      }
+    }
+    return formatted;
   }
 
   // Escape windows paths
   val = val ? val.replace(/\\([^\\])/g, '\\\\$1') : val;
   // Escape spaces in paths
   val = val.replace(/ /g, '\\ ');
-  return `${val}`;
+  return `${key}=${val}`;
 }
 
 export default Preview;

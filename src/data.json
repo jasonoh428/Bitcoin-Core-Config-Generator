@@ -709,9 +709,20 @@
     "section": "RPC API",
     "description": "Configure security and performance options for accessing the node's RPC interface.",
     "deprecatedrpc": {
-      "name": "Deprecated RPC Commands",
-      "description": "Respond to queries that use deprecated RPC commands.",
-      "default": 0
+      "name": "Enable Deprecated RPC Commands",
+      "description": {
+        "accounts": "Enable Accounts RPC",
+        "addwitnessaddress": "Enable Add Witness Address RPC",
+        "signrawtransaction": "Enable Sign Raw Transaction RPC",
+        "validateaddress": "Enable Validate Address RPC"
+      },
+      "default": [],
+      "values": [
+        "Accounts [accounts]",
+        "Add Witness Address [addwitnessaddress]",
+        "Sign Raw Transaction [signrawtransaction]",
+        "Validate Address [validateaddress]"
+      ]
     },
     "server": {
       "name": "Enable RPC Server",
@@ -745,7 +756,7 @@
     },
     "rpcauth": {
       "name": "RPC Auth",
-      "description": "Username and hashed password for JSON-RPC connections. The field <userpw> comes in the format: <USERNAME>:<SALT>$<HASH>. The client then connects normally using the rpcuser=<USERNAME>/rpcpassword=<PASSWORD> pair of arguments. This option can be specified multiple times.",
+      "description": "Username and hashed password for JSON-RPC connections. The field <userpw> comes in the format: <USERNAME>:<SALT>$<HASH>. The client then connects normally using the rpcuser=<USERNAME>/rpcpassword=<PASSWORD> pair of arguments. You can generate this value with the ./share/rpcauth/rpcauth.py script. This option can be specified multiple times.",
       "default": ""
     },
     "rpcport": {

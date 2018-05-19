@@ -143,7 +143,7 @@ class Editor extends Component {
           { this.flag('relay', 'whitelistforcerelay') }
         </Section>
         <Section title={data.rpc.section} description={data.rpc.description}>
-          { this.flag('rpc', 'deprecatedrpc') }
+          { this.multiselect('rpc', 'deprecatedrpc') }
           { this.flag('rpc', 'server') }
           { this.flag('rpc', 'rest') }
           { this.text('rpc', 'rpcbind') }
@@ -221,7 +221,13 @@ class Editor extends Component {
     check(section, prop);
     const {settings} = this.props;
     const current = settings[section][prop];
-    const description = fillDescription(data[section][prop].description, current);
+    var description;
+
+    if (current === undefined || current.length === 0) {
+      description = "";
+    } else {
+      description = fillDescription(data[section][prop].description, current);
+    }
 
     const change = (val) => (ev) => {
       const {checked} = ev.target;
@@ -233,7 +239,6 @@ class Editor extends Component {
       } else if (idx !== -1) {
         newValue.splice(idx, 1);
       }
-
       this.change(settings[section], prop)(newValue);
     };
 
@@ -434,6 +439,19 @@ export function fillDescription (description, value, key) {
   if (!description) {
     console.warn(`Cant find description for: value:${value} at ${key}`);
     return 'unknown entry';
+  }
+  if(typeof(description) === "object") {
+    // If the description value is an array, concatenate the descriptions
+    if (Array.isArray(value)) {
+      var formatted = "";
+      for (var val in value) {
+        if ({}.hasOwnProperty.call(value, val)) {
+          formatted += description[value[val]] + "\n";
+        }
+      }
+      return formatted;
+    }
+    return description.value;
   }
   return description.replace(/{}/g, value || '');
 }
