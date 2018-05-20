@@ -32,7 +32,7 @@ function Select ({value, onChange, values, id, disabled}) {
         id={id}
         readOnly
         data-val={selected.value}
-        />
+      />
       {list}
     </div>
   );

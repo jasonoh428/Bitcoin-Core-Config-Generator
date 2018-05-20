@@ -3,7 +3,6 @@ import React, { Component, PropTypes } from 'react';
 import './Section.css';
 
 class Section extends Component {
-
   state = {
     collapsed: true
   };
