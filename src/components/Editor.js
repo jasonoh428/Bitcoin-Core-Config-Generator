@@ -148,8 +148,6 @@ class Editor extends Component {
           { this.flag('rpc', 'rest') }
           { this.text('rpc', 'rpcbind') }
           { this.path('rpc', 'rpccookiefile', base, platform) }
-          { this.text('rpc', 'rpcuser') }
-          { this.text('rpc', 'rpcpassword') }
           { this.text('rpc', 'rpcauth') }
           { this.number('rpc', 'rpcport') }
           { this.text('rpc', 'rpcallowip') }
