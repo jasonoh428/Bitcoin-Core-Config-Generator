@@ -49,7 +49,6 @@ const presets = {
 };
 
 class Presets extends Component {
-
   static propTypes = {
     preset: PropTypes.string,
     defaults: PropTypes.object.isRequired,
@@ -82,7 +81,7 @@ class Presets extends Component {
             values={Object.keys(presets).map(toVal)}
             id={'presets'}
             disabled={false}
-            />
+          />
         </Item>
       </div>
     );

@@ -9,7 +9,7 @@ function Item ({title, description, children, disabled, large}) {
     <li
       className={`mdl-list__item mdl-list__item--two-line ${isDisabled}`}
       style={large ? stylesLarge : stylesNormal}
-      >
+    >
       <span className='mdl-list__item-primary-content'>
         <span>{title}</span>
         <span className='mdl-list__item-sub-title' style={{overflow: 'auto', height: '100%'}}>

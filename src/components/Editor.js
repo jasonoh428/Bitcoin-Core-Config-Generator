@@ -8,7 +8,6 @@ import { localPath, basePath, joinPath } from '../system';
 import data from '../data.json';
 
 class Editor extends Component {
-
   static propTypes = {
     settings: PropTypes.object.isRequired,
     onChange: PropTypes.func.isRequired
@@ -203,7 +202,7 @@ class Editor extends Component {
         title={data[section][prop].name}
         description={description}
         disabled={!isEnabled}
-        >
+      >
         <Select
           onChange={this.change(settings[section], prop)}
           value={value}
@@ -222,7 +221,7 @@ class Editor extends Component {
     var description;
 
     if (current === undefined || current.length === 0) {
-      description = "";
+      description = '';
     } else {
       description = fillDescription(data[section][prop].description, current);
     }
@@ -246,7 +245,7 @@ class Editor extends Component {
         description={description}
         disabled={!isEnabled}
         large
-        >
+      >
         {data[section][prop].values.map(val).map(value => (
           <label className='mdl-switch mdl-js-switch' htmlFor={`${section}.${prop}.${value.value}`} key={value.name}>
             <input
@@ -256,7 +255,7 @@ class Editor extends Component {
               checked={current.indexOf(value.value) !== -1}
               disabled={!isEnabled}
               onChange={change(value.value)}
-              />
+            />
             <span className='mdl-switch__label'>{value.name}</span>
           </label>
         ))}
@@ -275,7 +274,7 @@ class Editor extends Component {
         title={data[section][prop].name}
         description={description}
         disabled={!isEnabled}
-        >
+      >
         <div className='mdl-textfield mdl-js-textfield mdl-textfield--floating-label'>
           <input
             className='mdl-textfield__input'
@@ -285,7 +284,7 @@ class Editor extends Component {
             min={data[section][prop].min}
             max={data[section][prop].max}
             disabled={!isEnabled}
-            />
+          />
           <span className='mdl-textfield__error'>Please provide a valid number (min: {data[section][prop].min}, max: {data[section][prop].max})</span>
         </div>
       </Item>
@@ -303,7 +302,7 @@ class Editor extends Component {
         title={data[section][prop].name}
         description={description}
         disabled={!isEnabled}
-        >
+      >
         <div className='mdl-textfield mdl-js-textfield mdl-textfield--floating-label'>
           <input
             className='mdl-textfield__input'
@@ -314,7 +313,7 @@ class Editor extends Component {
             min={data[section][prop].min}
             max={data[section][prop].max}
             disabled={!isEnabled}
-            />
+          />
           <span className='mdl-textfield__error'>Please provide a valid number (min: {data[section][prop].min}, max: {data[section][prop].max})</span>
         </div>
       </Item>
@@ -346,7 +345,7 @@ class Editor extends Component {
         title={data[section][prop].name}
         description={description}
         disabled={!isEnabled}
-        >
+      >
         <div className='mdl-textfield mdl-js-textfield mdl-textfield--floating-label'>
           <input
             className='mdl-textfield__input'
@@ -354,7 +353,7 @@ class Editor extends Component {
             value={value || ''}
             onChange={(ev) => this.change(settings[section], prop)(ev.target.value)}
             disabled={!isEnabled}
-            />
+          />
         </div>
       </Item>
     );
@@ -371,7 +370,7 @@ class Editor extends Component {
         title={data[section][prop].name}
         description={description}
         disabled={!isEnabled}
-        >
+      >
         <label className='mdl-switch mdl-js-switch' htmlFor={`${section}.${prop}`}>
           <input
             type='checkbox'
@@ -380,7 +379,7 @@ class Editor extends Component {
             checked={value}
             disabled={!isEnabled}
             onChange={(ev) => this.change(settings[section], prop)(ev.target.checked ? 1 : 0)}
-            />
+          />
           <span className='mdl-switch__label' />
         </label>
       </Item>
@@ -398,7 +397,7 @@ class Editor extends Component {
         title={data[section][prop].name}
         description={description}
         disabled={!isEnabled}
-        >
+      >
         <div className='mdl-textfield mdl-js-textfield mdl-textfield--floating-label'>
           {value.map((v, idx) => (
             <input
@@ -416,7 +415,7 @@ class Editor extends Component {
                 }
                 this.change(settings[section], prop)(newValue);
               }}
-              />
+            />
           ))}
           <br />
           <button
@@ -424,7 +423,7 @@ class Editor extends Component {
             className='mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect'
             onClick={() => this.change(settings[section], prop)(value.concat(['']))}
             disabled={!isEnabled}
-            >
+          >
             <i className='material-icons'>add</i>
           </button>
         </div>
@@ -438,13 +437,14 @@ export function fillDescription (description, value, key) {
     console.warn(`Cant find description for: value:${value} at ${key}`);
     return 'unknown entry';
   }
-  if(typeof(description) === "object") {
+
+  if (typeof description === 'object') {
     // If the description value is an array, concatenate the descriptions
     if (Array.isArray(value)) {
-      var formatted = "";
+      var formatted = '';
       for (var val in value) {
         if ({}.hasOwnProperty.call(value, val)) {
-          formatted += description[value[val]] + "\n";
+          formatted += description[value[val]] + '\n';
         }
       }
       return formatted;

@@ -33,7 +33,6 @@ function saveSettings (settings) {
 }
 
 class App extends Component {
-
   state = {
     preset: undefined,
     settings: loadSettings(),
@@ -80,11 +79,11 @@ class App extends Component {
 function generateDefaults (settings) {
   const defaults = Object.keys(settings).reduce((data, section) => {
     data[section] = Object.keys(settings[section])
-    .filter(key => settings[section][key].default !== undefined)
-    .reduce((d, key) => {
-      d[key] = settings[section][key].default;
-      return d;
-    }, {});
+      .filter(key => settings[section][key].default !== undefined)
+      .reduce((d, key) => {
+        d[key] = settings[section][key].default;
+        return d;
+      }, {});
     return data;
   }, {});
 
