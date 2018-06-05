@@ -449,6 +449,10 @@ export function fillDescription (description, value, key) {
       }
       return formatted;
     }
+    // If there is a single value and it exists in the description mapping, return it
+    if (description[value] !== undefined) {
+      return description[value];
+    }
     return description.value;
   }
   return description.replace(/{}/g, value || '');
