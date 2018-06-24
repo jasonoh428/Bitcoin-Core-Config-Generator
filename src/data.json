@@ -58,7 +58,7 @@
     "dbcache": {
       "name": "DB Cache Size",
       "description": "Set database cache size in megabytes; machines sync faster with a larger cache. Recommend setting as high as possible based upon machine's available RAM.",
-      "default": 300,
+      "default": 450,
       "min": 4
     },
     "feefilter": {
