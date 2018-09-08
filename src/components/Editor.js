@@ -92,7 +92,6 @@ class Editor extends Component {
         </Section>
         <Section title={data.mining.section} description={data.mining.description}>
           { this.number('mining', 'blockmaxweight') }
-          { this.number('mining', 'blockmaxsize') }
           { this.decimal('mining', 'blockmintxfee') }
           { this.text('mining', 'blockversion') }
         </Section>

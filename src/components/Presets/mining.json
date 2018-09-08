@@ -9,8 +9,7 @@
     "maxsigcachesize": 100
   },
   "mining": {
-    "blockmaxweight": 4000000,
-    "blockmaxsize": 1000000
+    "blockmaxweight": 4000000
   },
   "network": {
     "peerbloomfilters": 0

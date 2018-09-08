@@ -688,11 +688,6 @@
       "description": "Set maximum BIP141 block weight.",
       "default": 3000000
     },
-    "blockmaxsize": {
-      "name": "Max Block Size",
-      "description": "Set maximum block size in bytes.",
-      "default": 750000
-    },
     "blockmintxfee": {
       "name": "Block Min Transaction Fee",
       "description": "Set lowest fee rate (in BTC/kB) for transactions to be included in block creation.",
