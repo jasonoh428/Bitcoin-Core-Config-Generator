@@ -31,6 +31,7 @@ Available preset configurations:
 * Testnet: for developers using testnet coins
 * Regtest: for developers creating their own test networks
 * Non-Syncing: for developers who have a synced node but want to "freeze" the blockchain
+* Lightning-Eclair: for users who are running an Eclair Lightning node
 
 License
 -------

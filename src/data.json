@@ -63,7 +63,7 @@
     "dbcache": {
       "name": "DB Cache Size",
       "description": "Set database cache size in megabytes; machines sync faster with a larger cache. Recommend setting as high as possible based upon machine's available RAM.",
-      "default": 300,
+      "default": 450,
       "min": 4
     },
     "feefilter": {
@@ -692,11 +692,6 @@
       "name": "Max Block Weight",
       "description": "Set maximum BIP141 block weight.",
       "default": 3000000
-    },
-    "blockmaxsize": {
-      "name": "Max Block Size",
-      "description": "Set maximum block size in bytes.",
-      "default": 750000
     },
     "blockmintxfee": {
       "name": "Block Min Transaction Fee",
