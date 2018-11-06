@@ -32,6 +32,7 @@ class Editor extends Component {
         <Section title={data.core.section} description={data.core.description}>
           { this.text('core', 'alertnotify') }
           { this.text('core', 'blocknotify') }
+          { this.path('core', 'blocksdir', base, platform) }
           { this.flag('core', 'blocksonly') }
           { this.text('core', 'assumevalid') }
           { this.path('core', 'conf', base, platform) }
@@ -40,6 +41,7 @@ class Editor extends Component {
           { this.number('core', 'dbbatchsize') }
           { this.number('core', 'dbcache') }
           { this.flag('core', 'feefilter') }
+          { this.text('core', 'includeconf') }
           { this.text('core', 'loadblock') }
           { this.number('core', 'maxorphantx') }
           { this.number('core', 'maxmempool') }
@@ -57,14 +59,12 @@ class Editor extends Component {
         </Section>
         <Section title={data.debug.section} description={data.debug.description}>
           { this.text('debug', 'uacomment') }
+          { this.flag('debug', 'addrmantest') }
           { this.number('debug', 'checkblocks') }
           { this.number('debug', 'checklevel') }
           { this.number('debug', 'checkmempool') }
           { this.flag('debug', 'checkpoints') }
-          { this.flag('debug', 'disablesafemode') }
-          { this.flag('debug', 'testsafemode') }
           { this.number('debug', 'dropmessagestest') }
-          { this.number('debug', 'fuzzmessagestest') }
           { this.decimal('debug', 'dbcrashratio') }
           { this.flag('debug', 'stopafterblockimport') }
           { this.number('debug', 'stopatheight') }
@@ -105,6 +105,7 @@ class Editor extends Component {
           { this.flag('network', 'discover') }
           { this.flag('network', 'dns') }
           { this.flag('network', 'dnsseed') }
+          { this.flag('network', 'enablebip61') }
           { this.text('network', 'externalip') }
           { this.flag('network', 'forcednsseed') }
           { this.flag('network', 'listen') }
@@ -157,6 +158,7 @@ class Editor extends Component {
         </Section>
         <Section title={data.wallet.section} description={data.wallet.description}>
           { this.select('wallet', 'addresstype') }
+          { this.flag('wallet', 'avoidpartialspends') }
           { this.select('wallet', 'changetype') }
           { this.flag('wallet', 'disablewallet') }
           { this.number('wallet', 'keypool') }
