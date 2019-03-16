@@ -88,6 +88,25 @@ function toConf (settings, defaults) {
       '',
       '# All values are currently set to defaults. Config is not needed.'
     );
+  } else {
+    conf.push(
+      '',
+      '',
+      '# [Sections]',
+      '# Most options automatically apply to mainnet, testnet, and regtest networks.',
+      '# If you want to confine an option to just one network, you should add it in the relevant section.',
+      '# EXCEPTIONS: The options addnode, connect, port, bind, rpcport, rpcbind and wallet',
+      '# only apply to mainnet unless they appear in the appropriate section below.',
+      '',
+      '# Options only for mainnet',
+      '[main]',
+      '',
+      '# Options only for testnet',
+      '[test]',
+      '',
+      '# Options only for regtest',
+      '[regtest]'
+      );
   }
 
   const { platform } = settings.__internal || defaults.__internal;
