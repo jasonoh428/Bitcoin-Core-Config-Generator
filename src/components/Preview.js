@@ -1,5 +1,6 @@
 /* global Blob */
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './Preview.css';
 
 import { joinPath, basePath } from '../system';
@@ -21,7 +22,7 @@ class Preview extends Component {
     if (window.navigator.msSaveOrOpenBlob) {
       window.navigator.msSaveBlob(blob, filename);
     } else {
-      var elem = window.document.createElement('a');
+      const elem = window.document.createElement('a');
       elem.href = window.URL.createObjectURL(blob);
       elem.download = filename;
       document.body.appendChild(elem);
@@ -43,6 +44,13 @@ class Preview extends Component {
           <textarea className='preview-editor' readOnly value={toConf(settings, defaults)} />
         </div>
         <div className='mdl-card__menu'>
+          <a
+            className='mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-efect'
+            target='_blank'
+            href={window.location.toString()}>
+            <i className='material-icons' id='link'>link</i>
+            <span className='mdl-tooltip' htmlFor='link'>Link to this Config File</span>
+          </a>
           <button
             className='mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-efect'
             onClick={this.generateConfig}>
@@ -136,7 +144,7 @@ function toComment (settings, section, key, value) {
     var description = fillDescription(data[section][key].description, value);
     // add a # after each newline except the last
     description = description.replace(/(\n)/gm, '\n# ');
-    return description.substring(0, description.length - 2);
+    return description;
   }
   return fillDescription(data[section][key].description, value);
 }

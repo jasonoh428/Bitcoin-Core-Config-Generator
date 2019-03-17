@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import Section from './Section';
 import Item from './Item';
@@ -6,6 +7,14 @@ import Select from './controls/Select';
 
 import { localPath, basePath, joinPath } from '../system';
 import data from '../data.json';
+
+const styles = {
+  visible: {},
+  hidden: {
+    visibility: 'hidden',
+    height: 0
+  }
+};
 
 class Editor extends Component {
   static propTypes = {
@@ -194,6 +203,10 @@ class Editor extends Component {
 
   select (section, prop, isEnabled = true) {
     check(section, prop);
+
+    // TODO [ToDr] hacky
+    const {configMode} = this;
+
     const {settings} = this.props;
     const value = or(settings[section][prop], data[section][prop].default);
     const description = fillDescription(data[section][prop].description[value], value, `${section}.${prop}`);
@@ -208,7 +221,7 @@ class Editor extends Component {
           onChange={this.change(settings[section], prop)}
           value={value}
           values={data[section][prop].values.map(val)}
-          id={prop}
+          id={`${configMode}_${prop}`}
           disabled={!isEnabled}
         />
       </Item>
@@ -217,6 +230,10 @@ class Editor extends Component {
 
   multiselect (section, prop, isEnabled = true) {
     check(section, prop);
+
+    // TODO [ToDr] hacky
+    const {configMode} = this;
+
     const {settings} = this.props;
     const current = settings[section][prop];
     var description;
@@ -246,20 +263,24 @@ class Editor extends Component {
         description={description}
         disabled={!isEnabled}
         large
-      >
-        {data[section][prop].values.map(val).map(value => (
-          <label className='mdl-switch mdl-js-switch' htmlFor={`${section}.${prop}.${value.value}`} key={value.name}>
-            <input
-              type='checkbox'
-              id={`${section}.${prop}.${value.value}`}
-              className='mdl-switch__input'
-              checked={current.indexOf(value.value) !== -1}
-              disabled={!isEnabled}
-              onChange={change(value.value)}
-            />
-            <span className='mdl-switch__label'>{value.name}</span>
-          </label>
-        ))}
+        >
+        {data[section][prop].values.map(val).map(value => {
+          const id = `${configMode}_${section}_${prop}_${value.value}`;
+
+          return (
+            <label className='mdl-switch mdl-js-switch' htmlFor={id} key={value.name}>
+              <input
+                type='checkbox'
+                id={id}
+                className='mdl-switch__input'
+                checked={current.indexOf(value.value) !== -1}
+                disabled={!isEnabled}
+                onChange={change(value.value)}
+                />
+              <span className='mdl-switch__label'>{value.name}</span>
+            </label>
+          );
+        })}
       </Item>
     );
   }
@@ -362,20 +383,25 @@ class Editor extends Component {
 
   flag (section, prop, isEnabled = true) {
     check(section, prop);
+
+    // TODO [ToDr] hacky
+    const {configMode} = this;
+
     const {settings} = this.props;
     const value = or(settings[section][prop], data[section][prop].default);
     const description = fillDescription(data[section][prop].description, value);
+    const id = `${configMode}_${section}_${prop}`;
 
     return (
       <Item
         title={data[section][prop].name}
         description={description}
         disabled={!isEnabled}
-      >
-        <label className='mdl-switch mdl-js-switch' htmlFor={`${section}.${prop}`}>
+        >
+        <label className='mdl-switch mdl-js-switch' htmlFor={id}>
           <input
             type='checkbox'
-            id={`${section}.${prop}`}
+            id={id}
             className='mdl-switch__input'
             checked={value}
             disabled={!isEnabled}
@@ -445,9 +471,11 @@ export function fillDescription (description, value, key) {
       var formatted = '';
       for (var val in value) {
         if ({}.hasOwnProperty.call(value, val)) {
-          formatted += description[value[val]] + '\n';
+          formatted += description[value[val]] + ',';
         }
       }
+      // remove trailing comma
+      formatted = formatted.replace(/(,$)/g, "");
       return formatted;
     }
     // If there is a single value and it exists in the description mapping, return it
