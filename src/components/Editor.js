@@ -8,14 +8,6 @@ import Select from './controls/Select';
 import { localPath, basePath, joinPath } from '../system';
 import data from '../data.json';
 
-const styles = {
-  visible: {},
-  hidden: {
-    visibility: 'hidden',
-    height: 0
-  }
-};
-
 class Editor extends Component {
   static propTypes = {
     settings: PropTypes.object.isRequired,
@@ -125,6 +117,7 @@ class Editor extends Component {
           { this.text('network', 'onion') }
           { this.select('network', 'onlynet') }
           { this.flag('network', 'peerbloomfilters') }
+          { this.number('network', 'peertimeout') }
           { this.number('network', 'port') }
           { this.text('network', 'proxy') }
           { this.flag('network', 'proxyrandomize') }
@@ -196,6 +189,10 @@ class Editor extends Component {
           { this.text('zeromq', 'zmqpubhashtx') }
           { this.text('zeromq', 'zmqpubrawblock') }
           { this.text('zeromq', 'zmqpubrawtx') }
+          { this.number('zeromq', 'zmqpubhashblockhwm') }
+          { this.number('zeromq', 'zmqpubhashtxhwm') }
+          { this.number('zeromq', 'zmqpubrawblockhwm') }
+          { this.number('zeromq', 'zmqpubrawtxhwm') }
         </Section>
       </div>
     );

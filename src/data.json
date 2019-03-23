@@ -271,6 +271,12 @@
       "description": "Support filtering of blocks and transactions with bloom filters.",
       "default": 1
     },
+    "peertimeout": {
+      "name": "Peer Timeout",
+      "description": "Specify p2p connection timeout in seconds. The amount of time a peer may be inactive before the connection to it is dropped.",
+      "default": 60,
+      "min": 1
+    },
     "port": {
       "name": "Listen Port",
       "description": "Listen for incoming connections on non-default port.",
@@ -293,7 +299,7 @@
     },
     "timeout": {
       "name": "Connection Timeout",
-      "description": "Peer connection timeout in milliseconds.",
+      "description": "Initial peer connection timeout in milliseconds.",
       "default": 5000,
       "min": 1
     },
@@ -351,6 +357,26 @@
       "name": "Publish Raw Transactions",
       "description": "Enable publishing of raw transaction hex to <address>.",
       "default": ""
+    },
+    "zmqpubhashblockhwm": {
+      "name": "Publish Block Hashes High Water Mark",
+      "description": "Set publish hash block outbound message high water mark.",
+      "default": 1000
+    },
+    "zmqpubhashtxhwm": {
+      "name": "Publish Transaction Hashes High Water Mark",
+      "description": "Set publish hash transaction outbound message high water mark.",
+      "default": 1000
+    },
+    "zmqpubrawblockhwm": {
+      "name": "Publish Raw Blocks High Water Mark",
+      "description": "Set publish raw block outbound message high water mark.",
+      "default": 1000
+    },
+    "zmqpubrawtxhwm": {
+      "name": "Publish Raw Transactions High Water Mark",
+      "description": "Set publish raw transaction outbound message high water mark.",
+      "default": 1000
     }
   },
   "debug": {
