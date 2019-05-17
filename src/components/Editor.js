@@ -36,7 +36,6 @@ class Editor extends Component {
           { this.path('core', 'blocksdir', base, platform) }
           { this.flag('core', 'blocksonly') }
           { this.text('core', 'assumevalid') }
-          { this.path('core', 'conf', base, platform) }
           { this.flag('core', 'daemon') }
           { this.path('core', 'datadir', base, platform) }
           { this.number('core', 'dbbatchsize') }

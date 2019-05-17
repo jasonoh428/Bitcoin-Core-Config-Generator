@@ -39,11 +39,6 @@
       "description": "Assume that this block hash and its ancestors are valid. Skip their script verification (performance boost.) Set to 0 to verify all blocks. We recommend leaving value blank.",
       "default": ""
     },
-    "conf": {
-      "name": "Config File Location",
-      "description": "Specify the location of the configuration file. To use non-default location, create a default location config file containing this setting.",
-      "default": "$BASE/bitcoin.conf"
-    },
     "daemon": {
       "name": "Daemon Mode",
       "description": "Run in the background as a daemon and accept commands.",
