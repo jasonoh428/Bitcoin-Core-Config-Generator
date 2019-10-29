@@ -32,6 +32,7 @@ class Editor extends Component {
 
         <Section title={data.core.section} description={data.core.description}>
           { this.text('core', 'alertnotify') }
+          { this.select('core', 'blockfilterindex') }
           { this.text('core', 'blocknotify') }
           { this.path('core', 'blocksdir', base, platform) }
           { this.flag('core', 'blocksonly') }
@@ -77,6 +78,7 @@ class Editor extends Component {
           { this.select('debug', 'debugexclude') }
           { this.path('debug', 'debuglogfile', base, platform) }
           { this.flag('debug', 'logips') }
+          { this.flag('debug', 'logthreadnames') }
           { this.flag('debug', 'logtimestamps') }
           { this.flag('debug', 'logtimemicros') }
           { this.number('debug', 'mocktime') }
@@ -87,8 +89,10 @@ class Editor extends Component {
           { this.flag('debug', 'printpriority') }
           { this.text('debug', 'promiscuousmempoolflags') }
           { this.flag('debug', 'shrinkdebugfile') }
+          { this.select('debug', 'chain') }
           { this.flag('debug', 'testnet') }
           { this.flag('debug', 'regtest') }
+          { this.number('debug', 'segwitheight') }
         </Section>
         <Section title={data.mining.section} description={data.mining.description}>
           { this.number('mining', 'blockmaxweight') }
@@ -136,7 +140,6 @@ class Editor extends Component {
           { this.number('relay', 'bytespersigop') }
           { this.flag('relay', 'datacarrier') }
           { this.number('relay', 'datacarriersize') }
-          { this.flag('relay', 'mempoolreplacement') }
           { this.flag('relay', 'permitbaremultisig') }
           { this.decimal('relay', 'minrelaytxfee') }
           { this.flag('relay', 'whitelistrelay') }

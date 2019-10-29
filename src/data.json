@@ -19,6 +19,21 @@
       "description": "Execute command when an alert (or long fork) is received (%s in cmd is replaced by message)",
       "default": ""
     },
+    "blockfilterindex": {
+      "name": "Block Filter Index",
+      "description": "Maintain an index of compact filters by block",
+      "description": {
+        "0": "Disable compact filters.",
+        "1": "Enable all compact filters.",
+        "basic": "Basic filters"
+      },
+      "default": "0",
+      "values": [
+        "Disable [0]",
+        "Enable All [1]",
+        "Basic Filters [basic]"
+      ]
+    },
     "blocknotify": {
       "name": "Block Notification",
       "description": "Execute command when the best block changes (%s in cmd is replaced by block hash)",
@@ -315,12 +330,12 @@
     },
     "whitebind": {
       "name": "Whitelist Bound IP Address",
-      "description": "Bind to given address and whitelist peers connecting to it. Use [host]:port notation for IPv6.",
+      "description": "Bind to given address and whitelist peers connecting to it. Use [host]:port notation for IPv6. Use [permissions]address for permissions. Allowed permissions are bloomfilter, noban, forcerelay, relay, and mempool. Specify multiple permissions separated by commas (default: noban,mempool,relay). Can be specified multiple times.",
       "default": ""
     },
     "whitelist": {
       "name": "Whitelist Peer",
-      "description": "Whitelist peers connecting from the given IP address (e.g. 1.2.3.4) or CIDR notated network (e.g. 1.2.3.0/24). Can be specified multiple times. Whitelisted peers cannot be DoS banned and their transactions are always relayed, even if they are already in the mempool. Useful for a gateway node.",
+      "description": "Whitelist peers connecting from the given IP address (e.g. 1.2.3.4) or CIDR notated network (e.g. 1.2.3.0/24). Use [permissions]address for permissions. Uses same permissions as Whitelist Bound IP Address. Can be specified multiple times. Whitelisted peers cannot be DoS banned and their transactions are always relayed, even if they are already in the mempool. Useful for a gateway node.",
       "default": ""
     },
     "maxuploadtarget": {
@@ -578,6 +593,11 @@
       "description": "Log IP Addresses in debug output.",
       "default": 0
     },
+    "logthreadnames": {
+      "name": "Log Threadnames",
+      "description": "Prepend debug output with name of the originating thread (only available on platforms supporting thread_local)",
+      "default": 0
+    },
     "logtimestamps": {
       "name": "Log Timestamps",
       "description": "Log timestamps in debug output.",
@@ -631,15 +651,35 @@
       "description": "Shrink debug.log file on client startup.",
       "default": 1
     },
+    "chain": {
+      "name": "Chain",
+      "description": "Run this node on the given network.",
+      "description": {
+        "main": "Main Network",
+        "test": "Test Network.",
+        "regtest": "Regression Test Network"
+      },
+      "default": "main",
+      "values": [
+        "Mainnet [main]",
+        "Testnet [test]",
+        "Regtest [regtest]"
+      ]
+    },
     "testnet": {
       "name": "Testnet",
-      "description": "Run this node on the Bitcoin Test Network.",
+      "description": "Run this node on the Bitcoin Test Network. Equivalent to -chain=test",
       "default": 0
     },
     "regtest": {
       "name": "Regtest",
-      "description": "Run this node on its own independent test network.",
+      "description": "Run this node on its own independent test network. Equivalent to -chain=regtest",
       "default": 0
+    },
+    "segwitheight": {
+      "name": "SegWit Height",
+      "description": "Set the activation height of segwit. -1 to disable. (regtest-only)",
+      "default": ""
     }
   },
   "relay": {
@@ -678,11 +718,6 @@
       "description": "Maximum size of data in OP_RETURN outputs we relay and mine.",
       "default": 83,
       "min": 1
-    },
-    "mempoolreplacement": {
-      "name": "Allow Replacement of Mempool Transactions",
-      "description": "Allow transaction replacement in the memory pool.",
-      "default": 1
     },
     "permitbaremultisig": {
       "name": "Permit Bare Multisig",
