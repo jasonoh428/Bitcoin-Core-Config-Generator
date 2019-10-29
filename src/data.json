@@ -57,7 +57,7 @@
     "daemon": {
       "name": "Daemon Mode",
       "description": "Run in the background as a daemon and accept commands.",
-      "default": 1
+      "default": 0
     },
     "datadir": {
       "name": "Data Storage Location",
