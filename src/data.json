@@ -679,7 +679,7 @@
     "segwitheight": {
       "name": "SegWit Height",
       "description": "Set the activation height of segwit. -1 to disable. (regtest-only)",
-      "default": ""
+      "default": 0
     }
   },
   "relay": {
