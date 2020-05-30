@@ -78,7 +78,6 @@ class Editor extends Component {
           { this.select('debug', 'debugexclude') }
           { this.path('debug', 'debuglogfile', base, platform) }
           { this.flag('debug', 'logips') }
-          { this.flag('debug', 'logthreadnames') }
           { this.flag('debug', 'logtimestamps') }
           { this.flag('debug', 'logtimemicros') }
           { this.number('debug', 'mocktime') }
@@ -101,6 +100,7 @@ class Editor extends Component {
         </Section>
         <Section title={data.network.section} description={data.network.description}>
           { this.text('network', 'addnode') }
+          { this.path('network', 'asmap', base, platform) }
           { this.number('network', 'banscore') }
           { this.number('network', 'bantime') }
           { this.text('network', 'bind') }
@@ -108,7 +108,6 @@ class Editor extends Component {
           { this.flag('network', 'discover') }
           { this.flag('network', 'dns') }
           { this.flag('network', 'dnsseed') }
-          { this.flag('network', 'enablebip61') }
           { this.text('network', 'externalip') }
           { this.flag('network', 'forcednsseed') }
           { this.flag('network', 'listen') }
@@ -154,6 +153,8 @@ class Editor extends Component {
           { this.text('rpc', 'rpcauth') }
           { this.number('rpc', 'rpcport') }
           { this.text('rpc', 'rpcallowip') }
+          { this.flag('rpc', 'rpcwhitelistdefault') }
+          { this.text('rpc', 'rpcwhitelist') }
           { this.number('rpc', 'rpcthreads') }
           { this.number('rpc', 'rpcworkqueue') }
           { this.select('rpc', 'rpcserialversion') }

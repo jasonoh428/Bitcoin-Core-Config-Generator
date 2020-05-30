@@ -168,6 +168,11 @@
       "description": "Add a node IP address to connect to and attempt to keep the connection open. This option can be set multiple times.",
       "default": ""
     },
+    "asmap": {
+      "name": "ASN Mapping",
+      "description": "Specify asn mapping used for bucketing of the peers. Relative paths will be prefixed by the net-specific datadir location.",
+      "default": "$BASE/ip_asn.map"
+    },
     "banscore": {
       "name": "Peer Ban Threshold",
       "description": "Threshold for disconnecting misbehaving peers.",
@@ -204,11 +209,6 @@
       "name": "Use DNS Seed",
       "description": "Query for peer addresses via DNS lookup, if low on addresses.",
       "default": 1
-    },
-    "enablebip61": {
-      "name": "Enable BIP61",
-      "description": "Send reject messages per BIP61.",
-      "default": 0
     },
     "externalip": {
       "name": "External IP Address",
@@ -593,11 +593,6 @@
       "description": "Log IP Addresses in debug output.",
       "default": 0
     },
-    "logthreadnames": {
-      "name": "Log Threadnames",
-      "description": "Prepend debug output with name of the originating thread (only available on platforms supporting thread_local)",
-      "default": 0
-    },
     "logtimestamps": {
       "name": "Log Timestamps",
       "description": "Log timestamps in debug output.",
@@ -813,6 +808,16 @@
     "rpcallowip": {
       "name": "RPC Allow IP Address",
       "description": "Allow JSON-RPC connections from specified source. Valid for <ip> are a single IP (e.g. 1.2.3.4), a network/netmask (e.g. 1.2.3.4/255.255.255.0) or a network/CIDR (e.g. 1.2.3.4/24). This option can be specified multiple times.",
+      "default": ""
+    },
+    "rpcwhitelistdefault": {
+      "name": "RPC Whitelist Default",
+      "description": "Sets default behavior for rpc whitelisting. Unless rpcwhitelistdefault is set to 0, if any -rpcwhitelist is set, the rpc server acts as if all rpc users are subject to empty-unless-otherwise-specified whitelists. If rpcwhitelistdefault is set to 1 and no -rpcwhitelist is set, rpc server acts as if all rpc users are subject to empty whitelists.",
+      "default": 0
+    },
+    "rpcwhitelist": {
+      "name": "RPC Whitelist",
+      "description": "Set a whitelist to filter incoming RPC calls for a specific user. The field <whitelist> comes in the format: <USERNAME>:<rpc 1>,<rpc 2>,...,<rpc n>. If multiple whitelists are set for a given user, they are set-intersected.",
       "default": ""
     },
     "rpcthreads": {
