@@ -142,7 +142,6 @@ class Editor extends Component {
           { this.flag('relay', 'permitbaremultisig') }
           { this.decimal('relay', 'minrelaytxfee') }
           { this.flag('relay', 'whitelistrelay') }
-          { this.flag('relay', 'whitelistforcerelay') }
         </Section>
         <Section title={data.rpc.section} description={data.rpc.description}>
           { this.multiselect('rpc', 'deprecatedrpc') }

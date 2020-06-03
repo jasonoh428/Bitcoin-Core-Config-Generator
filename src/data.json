@@ -487,7 +487,7 @@
         "bench": "Enable benchmark logging",
         "cmpctblock": "Enable compact block logging",
         "coindb": "Enable coin database logging",
-        "db": "Enable database logging",
+        "walletdb": "Enable wallet database logging",
         "http": "Enable HTTP logging",
         "leveldb": "Enable leveldb logging",
         "libevent": "Enable libevent logging",
@@ -728,11 +728,6 @@
     "whitelistrelay": {
       "name": "Whitelist Relay",
       "description": "Accept relayed transactions received from whitelisted peers even when not relaying transactions.",
-      "default": 1
-    },
-    "whitelistforcerelay": {
-      "name": "Whitelist Force Relay",
-      "description": "Force relay of transactions from whitelisted peers even if they violate local relay policy.",
       "default": 1
     }
   },
