@@ -792,7 +792,7 @@
     },
     "rpcauth": {
       "name": "RPC Auth",
-      "description": "Username and hashed password for JSON-RPC connections. The field <userpw> comes in the format: <USERNAME>:<SALT>$<HASH>. RPC clients connect using rpcuser=<USERNAME>/rpcpassword=<PASSWORD> arguments. You can generate this value with the ./share/rpcauth/rpcauth.py script in the Bitcoin Core repository. This option can be specified multiple times.",
+      "description": "Username and hashed password for JSON-RPC connections. The field <userpw> comes in the format: <USERNAME>:<SALT>$<HASH>. RPC clients connect using rpcuser=<USERNAME>/rpcpassword=<PASSWORD> arguments. You can generate this value with the share/rpcauth/rpcauth.py script in the Bitcoin Core repository. This option can be specified multiple times.",
       "default": ""
     },
     "rpcport": {
