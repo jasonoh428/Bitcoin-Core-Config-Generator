@@ -11,6 +11,53 @@
       "values": ["Windows", "Linux", "Mac OS"]
     }
   },
+  "chain": {
+    "section": "Chain Selection",
+    "description": "Choose which network / blockchain to use.",
+    "chain": {
+      "name": "Chain",
+      "description": "Run this node on the given network.",
+      "description": {
+        "main": "Main Network",
+        "test": "Test Network.",
+        "regtest": "Regression Test Network"
+      },
+      "default": "main",
+      "values": [
+        "Mainnet [main]",
+        "Testnet [test]",
+        "Regtest [regtest]"
+      ]
+    },
+    "testnet": {
+      "name": "Testnet",
+      "description": "Run this node on the Bitcoin Test Network. Equivalent to -chain=test",
+      "default": 0
+    },
+    "regtest": {
+      "name": "Regtest",
+      "description": "Run this node on its own independent test network. Equivalent to -chain=regtest",
+      "default": 0
+    },
+    "signet": {
+      "name": "Signet",
+      "description": "Use the signet chain. Equivalent to -chain=signet. Note that the network is defined by the -signetchallenge parameter",
+      "default": 0
+    },
+    "signetchallenge": {
+      "name": "Signet Challenge",
+      "description": "Blocks must satisfy the given script to be considered valid (only for signet networks)"
+    },
+    "signetseednode": {
+      "name": "Signet Seed Node",
+      "description": "Specify a seed node for the signet network, in the hostname[:port] format, e.g. sig.net:1234 (may be used multiple times to specify multiple seed nodes)"
+    },
+    "vbparams": {
+      "name": "Version Bits Deployment Params",
+      "description": "Use given start/end times for specified version bits deployment. Regtest mode only, in format <deployment:start:end>. Can be set multiple times.",
+      "default": ""
+    }
+  },
   "core": {
     "section": "Bitcoin Core",
     "description": "Basic parameters regarding Bitcoin Core node operation.",
@@ -149,6 +196,16 @@
       "description": "Rebuild chain state and block index from the blk*.dat files on disk. WARNING: very slow!",
       "default": 0
     },
+    "settings": {
+      "name": "Settings Data File",
+      "description": "Specify path to dynamic settings data file. Can be disabled with -nosettings. File is written at runtime and not meant to be edited by users. Relative paths will be prefixed by datadir location.",
+      "default": "settings.json"
+    },
+    "startupnotify": {
+      "name": "Startup Notification",
+      "description": "Execute command on startup.",
+      "default": ""
+    },
     "sysperms": {
       "name": "System File Permissions",
       "description": "Create new files with system default permissions. Only effective if wallet is disabled.",
@@ -158,235 +215,6 @@
       "name": "Index Transactions",
       "description": "Maintain a full transaction index, used by the getrawtransaction rpc call.",
       "default": 0
-    }
-  },
-  "network": {
-    "section": "Networking",
-    "description": "Options for how your node interacts with other peers on the network.",
-    "addnode": {
-      "name": "Connect to Peer",
-      "description": "Add a node IP address to connect to and attempt to keep the connection open. This option can be set multiple times.",
-      "default": ""
-    },
-    "asmap": {
-      "name": "ASN Mapping",
-      "description": "Specify asn mapping used for bucketing of the peers. Relative paths will be prefixed by the net-specific datadir location.",
-      "default": "$BASE/ip_asn.map"
-    },
-    "banscore": {
-      "name": "Peer Ban Threshold",
-      "description": "Threshold for disconnecting misbehaving peers.",
-      "default": 100,
-      "min": 1
-    },
-    "bantime": {
-      "name": "Peer Ban Time",
-      "description": "Number of seconds to keep misbehaving peers from reconnecting.",
-      "default": 86400,
-      "min": 1
-    },
-    "bind": {
-      "name": "Bind to IP Address",
-      "description": "Bind to given address and always listen on it. Use [host]:port notation for IPv6.",
-      "default": ""
-    },
-    "connect": {
-      "name": "Only Connect to Peer",
-      "description": "Connect only to the specified node(s); can be set multiple times. Set to 0 to disable automatic connections.",
-      "default": ""
-    },
-    "discover": {
-      "name": "Discover IP Address",
-      "description": "Discover own IP addresses. If disabled, should be used with -externalip or -proxy.",
-      "default": 1
-    },
-    "dns": {
-      "name": "Allow DNS Lookups",
-      "description": "Allow DNS lookups for -addnode, -seednode and -connect values.",
-      "default": 1
-    },
-    "dnsseed": {
-      "name": "Use DNS Seed",
-      "description": "Query for peer addresses via DNS lookup, if low on addresses.",
-      "default": 1
-    },
-    "externalip": {
-      "name": "External IP Address",
-      "description": "Specify your own public IP address.",
-      "default": ""
-    },
-    "forcednsseed": {
-      "name": "Force DNS Seed",
-      "description": "Always query for peer addresses via DNS lookup.",
-      "default": 0
-    },
-    "listen": {
-      "name": "Listen for Incoming Connections",
-      "description": "Accept incoming connections from peers.",
-      "default": 1
-    },
-    "listenonion": {
-      "name": "Tor Hidden Service",
-      "description": "Automatically create Tor hidden service.",
-      "default": 1
-    },
-    "maxconnections": {
-      "name": "Max Peer Connections",
-      "description": "Maintain at most N connections to peers.",
-      "default": 125,
-      "min": 0,
-      "max": 250
-    },
-    "maxreceivebuffer": {
-      "name": "Max Receive Buffer",
-      "description": "Maximum per-connection receive buffer (KiB).",
-      "default": 5000,
-      "min": 1000
-    },
-    "maxsendbuffer": {
-      "name": "Max Send Buffer",
-      "description": "Maximum per-connection send buffer (KiB).",
-      "default": 1000,
-      "min": 100
-    },
-    "maxtimeadjustment": {
-      "name": "Max Time Adjustment",
-      "description": "Maximum allowed median peer time offset adjustment in seconds. Local perspective of time may be influenced by peers forward or backward by this amount.",
-      "default": 4200,
-      "min": 0
-    },
-    "onion": {
-      "name": "Tor Proxy",
-      "description": "Use separate SOCKS5 proxy <ip:port> to reach peers via Tor hidden services.",
-      "default": ""
-    },
-    "onlynet": {
-      "name": "Only Use Specific Network",
-      "description": {
-        "any": "Use every available network",
-        "ipv4": "Only connect to peers via IPV4",
-        "ipv6": "Only connect to peers via IPV6.",
-        "onion": "Only connect to peers via Tor."
-      },
-      "default": "any",
-      "values": [
-        "Any [any]",
-        "IPV4 [ipv4]",
-        "IPV6 [ipv6]",
-        "Tor [onion]"
-      ]
-    },
-    "peerbloomfilters": {
-      "name": "Permit Peer Bloom Filters",
-      "description": "Support filtering of blocks and transactions with bloom filters.",
-      "default": 1
-    },
-    "peertimeout": {
-      "name": "Peer Timeout",
-      "description": "Specify p2p connection timeout in seconds. The amount of time a peer may be inactive before the connection to it is dropped.",
-      "default": 60,
-      "min": 1
-    },
-    "port": {
-      "name": "Listen Port",
-      "description": "Listen for incoming connections on non-default port.",
-      "default": ""
-    },
-    "proxy": {
-      "name": "Proxy Connection",
-      "description": "Connect through <ip:port> SOCKS5 proxy.",
-      "default": ""
-    },
-    "proxyrandomize": {
-      "name": "Randomize Proxy",
-      "description": "Randomize credentials for every proxy connection. This enables Tor stream isolation.",
-      "default": 1
-    },
-    "seednode": {
-      "name": "Seed Node",
-      "description": "Connect to a node (IP address) to retrieve peer addresses, then disconnect.",
-      "default": ""
-    },
-    "timeout": {
-      "name": "Connection Timeout",
-      "description": "Initial peer connection timeout in milliseconds.",
-      "default": 5000,
-      "min": 1
-    },
-    "torcontrol": {
-      "name": "Tor Control",
-      "description": "Tor control <ip:port> to use if onion listening enabled.",
-      "default": "127.0.0.1:9051"
-    },
-    "torpassword": {
-      "name": "Tor Control Password",
-      "description": "Tor control port password.",
-      "default": ""
-    },
-    "upnp": {
-      "name": "Universal Plug 'n Play",
-      "description": "Use UPnP to map the listening port.",
-      "default": 0
-    },
-    "whitebind": {
-      "name": "Whitelist Bound IP Address",
-      "description": "Bind to given address and whitelist peers connecting to it. Use [host]:port notation for IPv6. Use [permissions]address for permissions. Allowed permissions are bloomfilter, noban, forcerelay, relay, and mempool. Specify multiple permissions separated by commas (default: noban,mempool,relay). Can be specified multiple times.",
-      "default": ""
-    },
-    "whitelist": {
-      "name": "Whitelist Peer",
-      "description": "Whitelist peers connecting from the given IP address (e.g. 1.2.3.4) or CIDR notated network (e.g. 1.2.3.0/24). Use [permissions]address for permissions. Uses same permissions as Whitelist Bound IP Address. Can be specified multiple times. Whitelisted peers cannot be DoS banned and their transactions are always relayed, even if they are already in the mempool. Useful for a gateway node.",
-      "default": ""
-    },
-    "maxuploadtarget": {
-      "name": "Max Upload Target",
-      "description": "Tries to keep outbound traffic under the given target (in MiB per 24h), 0 = no limit.",
-      "default": 0,
-      "min": 0
-    }
-  },
-  "zeromq": {
-    "section": "ZeroMQ",
-    "description": "Options for handling notifications emitted via ZeroMQ.",
-    "zmqpubhashblock": {
-      "name": "Publish Block Hashes",
-      "description": "Enable publishing of block hashes to <address>.",
-      "default": ""
-    },
-    "zmqpubhashtx": {
-      "name": "Publish Transaction Hashes",
-      "description": "Enable publishing of transaction hashes to <address>.",
-      "default": ""
-    },
-    "zmqpubrawblock": {
-      "name": "Publish Raw Blocks",
-      "description": "Enable publishing of raw block hex to <address>.",
-      "default": ""
-    },
-    "zmqpubrawtx": {
-      "name": "Publish Raw Transactions",
-      "description": "Enable publishing of raw transaction hex to <address>.",
-      "default": ""
-    },
-    "zmqpubhashblockhwm": {
-      "name": "Publish Block Hashes High Water Mark",
-      "description": "Set publish hash block outbound message high water mark.",
-      "default": 1000
-    },
-    "zmqpubhashtxhwm": {
-      "name": "Publish Transaction Hashes High Water Mark",
-      "description": "Set publish hash transaction outbound message high water mark.",
-      "default": 1000
-    },
-    "zmqpubrawblockhwm": {
-      "name": "Publish Raw Blocks High Water Mark",
-      "description": "Set publish raw block outbound message high water mark.",
-      "default": 1000
-    },
-    "zmqpubrawtxhwm": {
-      "name": "Publish Raw Transactions High Water Mark",
-      "description": "Set publish raw transaction outbound message high water mark.",
-      "default": 1000
     }
   },
   "debug": {
@@ -471,11 +299,6 @@
       "description": "Do not accept transactions whose size with all in-mempool descendants exceeds <n> kilobytes.",
       "default": 101,
       "min": 0
-    },
-    "vbparams": {
-      "name": "Version Bits Deployment Params",
-      "description": "Use given start/end times for specified version bits deployment. Regtest mode only, in format <deployment:start:end>. Can be set multiple times.",
-      "default": ""
     },
     "debug": {
       "name": "Debug Logging",
@@ -646,31 +469,6 @@
       "description": "Shrink debug.log file on client startup.",
       "default": 1
     },
-    "chain": {
-      "name": "Chain",
-      "description": "Run this node on the given network.",
-      "description": {
-        "main": "Main Network",
-        "test": "Test Network.",
-        "regtest": "Regression Test Network"
-      },
-      "default": "main",
-      "values": [
-        "Mainnet [main]",
-        "Testnet [test]",
-        "Regtest [regtest]"
-      ]
-    },
-    "testnet": {
-      "name": "Testnet",
-      "description": "Run this node on the Bitcoin Test Network. Equivalent to -chain=test",
-      "default": 0
-    },
-    "regtest": {
-      "name": "Regtest",
-      "description": "Run this node on its own independent test network. Equivalent to -chain=regtest",
-      "default": 0
-    },
     "segwitheight": {
       "name": "SegWit Height",
       "description": "Set the activation height of segwit. -1 to disable. (regtest-only)",
@@ -729,6 +527,195 @@
       "name": "Whitelist Relay",
       "description": "Accept relayed transactions received from whitelisted peers even when not relaying transactions.",
       "default": 1
+    }
+  },
+  "network": {
+    "section": "Networking",
+    "description": "Options for how your node interacts with other peers on the network.",
+    "addnode": {
+      "name": "Connect to Peer",
+      "description": "Add a node IP address to connect to and attempt to keep the connection open. This option can be set multiple times.",
+      "default": ""
+    },
+    "asmap": {
+      "name": "ASN Mapping",
+      "description": "Specify asn mapping used for bucketing of the peers. Relative paths will be prefixed by the net-specific datadir location.",
+      "default": "$BASE/ip_asn.map"
+    },
+    "bantime": {
+      "name": "Peer Ban Time",
+      "description": "Number of seconds to keep misbehaving peers from reconnecting.",
+      "default": 86400,
+      "min": 1
+    },
+    "bind": {
+      "name": "Bind to IP Address",
+      "description": "Bind to given address and always listen on it. (default: 0.0.0.0). Use [host]:port notation for IPv6. Append =onion to tag any incoming connections to that address and port as incoming Tor connections",
+      "default": ""
+    },
+    "connect": {
+      "name": "Only Connect to Peer",
+      "description": "Connect only to the specified node(s); can be set multiple times. Set to 0 to disable automatic connections.",
+      "default": ""
+    },
+    "discover": {
+      "name": "Discover IP Address",
+      "description": "Discover own IP addresses. If disabled, should be used with -externalip or -proxy.",
+      "default": 1
+    },
+    "dns": {
+      "name": "Allow DNS Lookups",
+      "description": "Allow DNS lookups for -addnode, -seednode and -connect values.",
+      "default": 1
+    },
+    "dnsseed": {
+      "name": "Use DNS Seed",
+      "description": "Query for peer addresses via DNS lookup, if low on addresses.",
+      "default": 1
+    },
+    "externalip": {
+      "name": "External IP Address",
+      "description": "Specify your own public IP address.",
+      "default": ""
+    },
+    "forcednsseed": {
+      "name": "Force DNS Seed",
+      "description": "Always query for peer addresses via DNS lookup.",
+      "default": 0
+    },
+    "listen": {
+      "name": "Listen for Incoming Connections",
+      "description": "Accept incoming connections from peers.",
+      "default": 1
+    },
+    "listenonion": {
+      "name": "Tor Hidden Service",
+      "description": "Automatically create Tor hidden service.",
+      "default": 1
+    },
+    "maxconnections": {
+      "name": "Max Peer Connections",
+      "description": "Maintain at most N connections to peers.",
+      "default": 125,
+      "min": 0,
+      "max": 250
+    },
+    "maxreceivebuffer": {
+      "name": "Max Receive Buffer",
+      "description": "Maximum per-connection receive buffer (KiB).",
+      "default": 5000,
+      "min": 1000
+    },
+    "maxsendbuffer": {
+      "name": "Max Send Buffer",
+      "description": "Maximum per-connection send buffer (KiB).",
+      "default": 1000,
+      "min": 100
+    },
+    "maxtimeadjustment": {
+      "name": "Max Time Adjustment",
+      "description": "Maximum allowed median peer time offset adjustment in seconds. Local perspective of time may be influenced by peers forward or backward by this amount.",
+      "default": 4200,
+      "min": 0
+    },
+    "networkactive": {
+      "name": "Network Active",
+      "description": "Enable all P2P network activity.",
+      "default": 1
+    },
+    "onion": {
+      "name": "Tor Proxy",
+      "description": "Use separate SOCKS5 proxy <ip:port> to reach peers via Tor hidden services.",
+      "default": ""
+    },
+    "onlynet": {
+      "name": "Only Use Specific Network",
+      "description": {
+        "any": "Use every available network",
+        "ipv4": "Only connect to peers via IPV4",
+        "ipv6": "Only connect to peers via IPV6.",
+        "onion": "Only connect to peers via Tor."
+      },
+      "default": "any",
+      "values": [
+        "Any [any]",
+        "IPV4 [ipv4]",
+        "IPV6 [ipv6]",
+        "Tor [onion]"
+      ]
+    },
+    "peerblockfilters": {
+      "name": "Permit Peer Block Filters",
+      "description": "Serve compact block filters to peers per BIP 157.",
+      "default": 0
+    },
+    "peerbloomfilters": {
+      "name": "Permit Peer Bloom Filters",
+      "description": "Support filtering of blocks and transactions with bloom filters.",
+      "default": 1
+    },
+    "peertimeout": {
+      "name": "Peer Timeout",
+      "description": "Specify p2p connection timeout in seconds. The amount of time a peer may be inactive before the connection to it is dropped.",
+      "default": 60,
+      "min": 1
+    },
+    "port": {
+      "name": "Listen Port",
+      "description": "Listen for incoming connections on non-default port.",
+      "default": ""
+    },
+    "proxy": {
+      "name": "Proxy Connection",
+      "description": "Connect through <ip:port> SOCKS5 proxy.",
+      "default": ""
+    },
+    "proxyrandomize": {
+      "name": "Randomize Proxy",
+      "description": "Randomize credentials for every proxy connection. This enables Tor stream isolation.",
+      "default": 1
+    },
+    "seednode": {
+      "name": "Seed Node",
+      "description": "Connect to a node (IP address) to retrieve peer addresses, then disconnect.",
+      "default": ""
+    },
+    "timeout": {
+      "name": "Connection Timeout",
+      "description": "Initial peer connection timeout in milliseconds.",
+      "default": 5000,
+      "min": 1
+    },
+    "torcontrol": {
+      "name": "Tor Control",
+      "description": "Tor control <ip:port> to use if onion listening enabled.",
+      "default": "127.0.0.1:9051"
+    },
+    "torpassword": {
+      "name": "Tor Control Password",
+      "description": "Tor control port password.",
+      "default": ""
+    },
+    "upnp": {
+      "name": "Universal Plug 'n Play",
+      "description": "Use UPnP to map the listening port.",
+      "default": 0
+    },
+    "whitebind": {
+      "name": "Whitelist Bound IP Address",
+      "description": "Bind to given address and whitelist peers connecting to it. Use [host]:port notation for IPv6. Use [permissions]address for permissions. Allowed permissions are bloomfilter, noban, forcerelay, relay, and mempool. Specify multiple permissions separated by commas (default: noban,mempool,relay). Can be specified multiple times.",
+      "default": ""
+    },
+    "whitelist": {
+      "name": "Whitelist Peer",
+      "description": "Whitelist peers connecting from the given IP address (e.g. 1.2.3.4) or CIDR notated network (e.g. 1.2.3.0/24). Use [permissions]address for permissions. Uses same permissions as Whitelist Bound IP Address. Can be specified multiple times. Whitelisted peers cannot be DoS banned and their transactions are always relayed, even if they are already in the mempool. Useful for a gateway node.",
+      "default": ""
+    },
+    "maxuploadtarget": {
+      "name": "Max Upload Target",
+      "description": "Tries to keep outbound traffic under the given target (in MiB per 24h), 0 = no limit.",
+      "default": 0,
+      "min": 0
     }
   },
   "mining": {
@@ -905,6 +892,12 @@
       "default": 0.0001,
       "min": 0
     },
+    "maxapsfee": {
+      "name": "Max Avoid Partial Spend Fee",
+      "description": "Spend up to this amount in additional (absolute) fees (in BTC) if it allows the use of partial spend avoidance (default: 0.00)",
+      "default": 0.00,
+      "min": 0
+    },
     "mintxfee": {
       "name": "Min Transaction Fee",
       "description": "Fee rates (in BTC/kB) smaller than this are considered zero fee for transaction creation",
@@ -919,11 +912,6 @@
     "rescan": {
       "name": "Rescan Wallet",
       "description": "Rescan the blockchain for missing wallet transactions on startup. WARNING: very slow!",
-      "default": 0
-    },
-    "salvagewallet": {
-      "name": "Salvage Wallet",
-      "description": "Attempt to recover private keys from a corrupt wallet on startup.",
       "default": 0
     },
     "spendzeroconfchange": {
@@ -948,11 +936,6 @@
       "description": "Send transactions with full-RBF opt-in enabled.",
       "default": 1
     },
-    "upgradewallet": {
-      "name": "Upgrade Wallet Automatically",
-      "description": "Upgrade wallet to latest format on startup.",
-      "default": 1
-    },
     "wallet": {
       "name": "Wallet Path",
       "description": "Specify wallet database path. Can be specified multiple times to load multiple wallets. Path is interpreted relative to <walletdir> if it is not absolute and will be created if it does not exist.",
@@ -971,11 +954,6 @@
     "walletnotify": {
       "name": "Wallet Notification",
       "description": "Execute command when a wallet transaction changes (%s in cmd is replaced by TxID)",
-      "default": ""
-    },
-    "zapwallettxes": {
-      "name": "Zap Wallet Transactions",
-      "description": "Delete all wallet transactions and only recover those parts of the blockchain through -rescan on startup. Value of 1 = keep tx meta data e.g. account owner and payment request information, 2 = drop tx meta data.",
       "default": ""
     },
     "dblogsize": {
@@ -997,6 +975,60 @@
       "name": "Reject Long Transaction Chains",
       "description": "Wallet will not create transactions that violate mempool chain limits.",
       "default": 1
+    }
+  },
+  "zeromq": {
+    "section": "ZeroMQ",
+    "description": "Options for handling notifications emitted via ZeroMQ.",
+    "zmqpubhashblock": {
+      "name": "Publish Block Hashes",
+      "description": "Enable publishing of block hashes to <address>.",
+      "default": ""
+    },
+    "zmqpubhashtx": {
+      "name": "Publish Transaction Hashes",
+      "description": "Enable publishing of transaction hashes to <address>.",
+      "default": ""
+    },
+    "zmqpubrawblock": {
+      "name": "Publish Raw Blocks",
+      "description": "Enable publishing of raw block hex to <address>.",
+      "default": ""
+    },
+    "zmqpubrawtx": {
+      "name": "Publish Raw Transactions",
+      "description": "Enable publishing of raw transaction hex to <address>.",
+      "default": ""
+    },
+    "zmqpubhashblockhwm": {
+      "name": "Publish Block Hashes High Water Mark",
+      "description": "Set publish hash block outbound message high water mark.",
+      "default": 1000
+    },
+    "zmqpubhashtxhwm": {
+      "name": "Publish Transaction Hashes High Water Mark",
+      "description": "Set publish hash transaction outbound message high water mark.",
+      "default": 1000
+    },
+    "zmqpubrawblockhwm": {
+      "name": "Publish Raw Blocks High Water Mark",
+      "description": "Set publish raw block outbound message high water mark.",
+      "default": 1000
+    },
+    "zmqpubrawtxhwm": {
+      "name": "Publish Raw Transactions High Water Mark",
+      "description": "Set publish raw transaction outbound message high water mark.",
+      "default": 1000
+    },
+    "zmqpubsequence": {
+      "name": "Publish Hash Block and Transaction Sequence",
+      "description": "Enable publish hash block and tx sequence in <address>.",
+      "default": ""
+    },
+    "zmqpubsequencehwm": {
+      "name": "Publish Hash Sequence Message High Water Mark",
+      "description": "Set publish hash sequence message high water mark.",
+      "default": 1000
     }
   }
 }
