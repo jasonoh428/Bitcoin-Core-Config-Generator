@@ -55,6 +55,8 @@ class Editor extends Component {
           { this.number('core', 'prune') }
           { this.flag('core', 'reindex-chainstate') }
           { this.flag('core', 'reindex') }
+          { this.text('core', 'settings') }
+          { this.text('core', 'startupnotify') }
           { this.flag('core', 'sysperms') }
           { this.flag('core', 'txindex') }
         </Section>
@@ -73,7 +75,6 @@ class Editor extends Component {
           { this.number('debug', 'limitancestorsize') }
           { this.number('debug', 'limitdescendantcount') }
           { this.number('debug', 'limitdescendantsize') }
-          { this.text('debug', 'vbparams') }
           { this.select('debug', 'debug') }
           { this.select('debug', 'debugexclude') }
           { this.path('debug', 'debuglogfile', base, platform) }
@@ -88,10 +89,16 @@ class Editor extends Component {
           { this.flag('debug', 'printpriority') }
           { this.text('debug', 'promiscuousmempoolflags') }
           { this.flag('debug', 'shrinkdebugfile') }
-          { this.select('debug', 'chain') }
-          { this.flag('debug', 'testnet') }
-          { this.flag('debug', 'regtest') }
           { this.number('debug', 'segwitheight') }
+        </Section>
+        <Section title={data.chain.section} description={data.chain.description}>
+          { this.select('chain', 'chain') }
+          { this.flag('chain', 'regtest') }
+          { this.flag('chain', 'signet') }
+          { this.text('chain', 'signetchallenge') }
+          { this.text('chain', 'signetseednode') }
+          { this.flag('chain', 'testnet') }
+          { this.text('chain', 'vbparams') }
         </Section>
         <Section title={data.mining.section} description={data.mining.description}>
           { this.number('mining', 'blockmaxweight') }
@@ -101,7 +108,6 @@ class Editor extends Component {
         <Section title={data.network.section} description={data.network.description}>
           { this.text('network', 'addnode') }
           { this.path('network', 'asmap', base, platform) }
-          { this.number('network', 'banscore') }
           { this.number('network', 'bantime') }
           { this.text('network', 'bind') }
           { this.text('network', 'connect') }
@@ -116,8 +122,10 @@ class Editor extends Component {
           { this.number('network', 'maxreceivebuffer') }
           { this.number('network', 'maxsendbuffer') }
           { this.number('network', 'maxtimeadjustment') }
+          { this.flag('network', 'networkactive') }
           { this.text('network', 'onion') }
           { this.select('network', 'onlynet') }
+          { this.flag('network', 'peerblockfilters') }
           { this.flag('network', 'peerbloomfilters') }
           { this.number('network', 'peertimeout') }
           { this.number('network', 'port') }
@@ -167,20 +175,18 @@ class Editor extends Component {
           { this.number('wallet', 'keypool') }
           { this.decimal('wallet', 'fallbackfee') }
           { this.decimal('wallet', 'discardfee') }
+          { this.decimal('wallet', 'maxapsfee') }
           { this.decimal('wallet', 'mintxfee') }
           { this.decimal('wallet', 'paytxfee') }
           { this.flag('wallet', 'rescan') }
-          { this.flag('wallet', 'salvagewallet') }
           { this.flag('wallet', 'spendzeroconfchange') }
           { this.text('wallet', 'rootcertificates') }
           { this.number('wallet', 'txconfirmtarget') }
           { this.flag('wallet', 'walletrbf') }
-          { this.flag('wallet', 'upgradewallet') }
           { this.text('wallet', 'wallet') }
           { this.path('wallet', 'walletdir', base, platform) }
           { this.flag('wallet', 'walletbroadcast') }
           { this.text('wallet', 'walletnotify') }
-          { this.text('wallet', 'zapwallettxes') }
           { this.number('wallet', 'dblogsize') }
           { this.flag('wallet', 'flushwallet') }
           { this.flag('wallet', 'privdb') }
@@ -191,10 +197,12 @@ class Editor extends Component {
           { this.text('zeromq', 'zmqpubhashtx') }
           { this.text('zeromq', 'zmqpubrawblock') }
           { this.text('zeromq', 'zmqpubrawtx') }
+          { this.text('zeromq', 'zmqpubsequence') }
           { this.number('zeromq', 'zmqpubhashblockhwm') }
           { this.number('zeromq', 'zmqpubhashtxhwm') }
           { this.number('zeromq', 'zmqpubrawblockhwm') }
           { this.number('zeromq', 'zmqpubrawtxhwm') }
+          { this.number('zeromq', 'zmqpubsequencehwm') }
         </Section>
       </div>
     );
