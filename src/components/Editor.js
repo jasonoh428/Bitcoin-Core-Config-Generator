@@ -37,11 +37,12 @@ class Editor extends Component {
           { this.path('core', 'blocksdir', base, platform) }
           { this.flag('core', 'blocksonly') }
           { this.text('core', 'assumevalid') }
+          { this.flag('core', 'coinstatsindex') }
           { this.flag('core', 'daemon') }
+          { this.flag('core', 'daemonwait') }
           { this.path('core', 'datadir', base, platform) }
           { this.number('core', 'dbbatchsize') }
           { this.number('core', 'dbcache') }
-          { this.flag('core', 'feefilter') }
           { this.text('core', 'includeconf') }
           { this.text('core', 'loadblock') }
           { this.number('core', 'maxorphantx') }
@@ -63,12 +64,13 @@ class Editor extends Component {
         <Section title={data.debug.section} description={data.debug.description}>
           { this.text('debug', 'uacomment') }
           { this.flag('debug', 'addrmantest') }
+          { this.flag('debug', 'capturemessages') }
           { this.number('debug', 'checkblocks') }
           { this.number('debug', 'checklevel') }
           { this.number('debug', 'checkmempool') }
           { this.flag('debug', 'checkpoints') }
-          { this.number('debug', 'dropmessagestest') }
           { this.decimal('debug', 'dbcrashratio') }
+          { this.flag('debug', 'fastprune') }
           { this.flag('debug', 'stopafterblockimport') }
           { this.number('debug', 'stopatheight') }
           { this.number('debug', 'limitancestorcount') }
@@ -79,6 +81,8 @@ class Editor extends Component {
           { this.select('debug', 'debugexclude') }
           { this.path('debug', 'debuglogfile', base, platform) }
           { this.flag('debug', 'logips') }
+          { this.flag('debug', 'logsourcelocations') }
+          { this.flag('debug', 'logthreadnames') }
           { this.flag('debug', 'logtimestamps') }
           { this.flag('debug', 'logtimemicros') }
           { this.number('debug', 'mocktime') }
@@ -115,13 +119,17 @@ class Editor extends Component {
           { this.flag('network', 'dns') }
           { this.flag('network', 'dnsseed') }
           { this.text('network', 'externalip') }
+          { this.flag('network', 'fixedseeds') }
           { this.flag('network', 'forcednsseed') }
+          { this.flag('network', 'i2pacceptincoming') }
+          { this.text('network', 'i2psam') }
           { this.flag('network', 'listen') }
           { this.flag('network', 'listenonion') }
           { this.number('network', 'maxconnections') }
           { this.number('network', 'maxreceivebuffer') }
           { this.number('network', 'maxsendbuffer') }
           { this.number('network', 'maxtimeadjustment') }
+          { this.flag('network', 'natpmp') }
           { this.flag('network', 'networkactive') }
           { this.text('network', 'onion') }
           { this.select('network', 'onlynet') }
@@ -179,9 +187,11 @@ class Editor extends Component {
           { this.decimal('wallet', 'mintxfee') }
           { this.decimal('wallet', 'paytxfee') }
           { this.flag('wallet', 'rescan') }
+          { this.text('wallet', 'signer') }
           { this.flag('wallet', 'spendzeroconfchange') }
           { this.text('wallet', 'rootcertificates') }
           { this.number('wallet', 'txconfirmtarget') }
+          { this.flag('wallet', 'unsafesqlitesync') }
           { this.flag('wallet', 'walletrbf') }
           { this.text('wallet', 'wallet') }
           { this.path('wallet', 'walletdir', base, platform) }

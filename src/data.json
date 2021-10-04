@@ -54,7 +54,7 @@
     },
     "vbparams": {
       "name": "Version Bits Deployment Params",
-      "description": "Use given start/end times for specified version bits deployment. Regtest mode only, in format <deployment:start:end>. Can be set multiple times.",
+      "description": "Use given start/end times for specified version bits deployment. Regtest mode only, in format <deployment:start:end[:min_activation_height]>. Can be set multiple times.",
       "default": ""
     }
   },
@@ -101,9 +101,19 @@
       "description": "Assume that this block hash and its ancestors are valid. Skip their script verification (performance boost.) Set to 0 to verify all blocks. We recommend leaving value blank.",
       "default": ""
     },
+    "coinstatsindex": {
+      "name": "Coin Stats Index",
+      "description": "Maintain coinstats index used by the gettxoutsetinfo RPC.",
+      "default": 0
+    },
     "daemon": {
       "name": "Daemon Mode",
       "description": "Run in the background as a daemon and accept commands.",
+      "default": 0
+    },
+    "daemonwait": {
+      "name": "Daemon Wait Mode",
+      "description": "Wait for initialization to be finished before exiting. This implies -daemon.",
       "default": 0
     },
     "datadir": {
@@ -122,11 +132,6 @@
       "description": "Set database cache size in megabytes; machines sync faster with a larger cache. Recommend setting as high as possible based upon machine's available RAM.",
       "default": 450,
       "min": 4
-    },
-    "feefilter": {
-      "name": "Fee Filter",
-      "description": "Tell peer nodes not to send transactions to you that pay less than your mempool min fee.",
-      "default": 1
     },
     "includeconf": {
       "name": "Include Config File",
@@ -182,7 +187,7 @@
     },
     "prune": {
       "name": "Prune Old Blocks",
-      "description": "Reduce storage requirements by only storing most recent N MiB of block. This mode is incompatible with -txindex and -rescan. WARNING: Reverting this setting requires re-downloading the entire blockchain. (default: 0 = disable pruning blocks, 1 = allow manual pruning via RPC, greater than 550 = automatically prune blocks to stay under target size in MiB).",
+      "description": "Reduce storage requirements by only storing most recent N MiB of block. This mode is incompatible with -txindex and -coinstatsindex. WARNING: Reverting this setting requires re-downloading the entire blockchain. (default: 0 = disable pruning blocks, 1 = allow manual pruning via RPC, greater than 550 = automatically prune blocks to stay under target size in MiB).",
       "default": 0,
       "min": 0
     },
@@ -230,6 +235,11 @@
       "description": "Allows you to test address relay on localhost.",
       "default": 0
     },
+    "capturemessages": {
+      "name": "Capture Messages",
+      "description": "Capture all P2P messages to disk.",
+      "default": 0
+    },
     "checkblocks": {
       "name": "Check Blocks",
       "description": "How many recent blocks to check at startup.",
@@ -254,17 +264,17 @@
       "description": "Disable expensive verification for known chain history.",
       "default": 1
     },
-    "dropmessagestest": {
-      "name": "Test Dropped Messages",
-      "description": "Randomly drop 1 of every <n> network messages.",
-      "default": ""
-    },
     "dbcrashratio": {
       "name": "DB Crash Ratio",
       "description": "Randomly crash while writing data at a given rate between 0 and 1.",
       "default": 0,
       "min": 0,
       "max": 1
+    },
+    "fastprune": {
+      "name": "Fast Prune",
+      "description": "Use smaller block files and lower minimum prune height for testing purposes.",
+      "default": 0
     },
     "stopafterblockimport": {
       "name": "Stop After Block Import",
@@ -414,6 +424,16 @@
     "logips": {
       "name": "Log IP Addresses",
       "description": "Log IP Addresses in debug output.",
+      "default": 0
+    },
+    "logsourcelocations": {
+      "name": "Log Source Locations",
+      "description": "Prepend debug output with name of the originating source location (source file, line number and function name).",
+      "default": 0
+    },
+    "logthreadnames": {
+      "name": "Log Thread Names",
+      "description": "Prepend debug output with name of the originating thread (only available on platforms supporting thread_local).",
       "default": 0
     },
     "logtimestamps": {
@@ -578,10 +598,24 @@
       "description": "Specify your own public IP address.",
       "default": ""
     },
+    "fixedseeds": {
+      "name": "Use Fixed Seeds",
+      "description": "Allow fixed seeds if DNS seeds don't provide peers.",
+      "default": 1
+    },
     "forcednsseed": {
       "name": "Force DNS Seed",
       "description": "Always query for peer addresses via DNS lookup.",
       "default": 0
+    },
+    "i2pacceptincoming": {
+      "name": "Accept Incoming I2P Connections",
+      "description": "If set and -i2psam is also set then incoming I2P connections are accepted via the SAM proxy. If this is not set but -i2psam is set then only outgoing connections will be made to the I2P network. Ignored if -i2psam is not set. Listening for incoming I2P connections is done through the SAM proxy, not by binding to a local address and port.",
+      "default": 1
+    },
+    "i2psam": {
+      "name": "I2P SAM Proxy",
+      "description": "I2P SAM proxy <ip:port> to reach I2P peers and accept I2P connections."
     },
     "listen": {
       "name": "Listen for Incoming Connections",
@@ -617,6 +651,11 @@
       "description": "Maximum allowed median peer time offset adjustment in seconds. Local perspective of time may be influenced by peers forward or backward by this amount.",
       "default": 4200,
       "min": 0
+    },
+    "natpmp": {
+      "name": "NAT Port Mapping Protocol",
+      "description": "Use NAT-PMP to map the listening port.",
+      "default": 0
     },
     "networkactive": {
       "name": "Network Active",
@@ -914,6 +953,10 @@
       "description": "Rescan the blockchain for missing wallet transactions on startup. WARNING: very slow!",
       "default": 0
     },
+    "signer": {
+      "name": "Signer Command",
+      "description": "External signing tool, see doc/external-signer.md"
+    },
     "spendzeroconfchange": {
       "name": "Spend Unconfirmed Change",
       "description": "Spend unconfirmed change when sending transactions.",
@@ -930,6 +973,11 @@
       "default": 6,
       "min": 2,
       "max": 25
+    },
+    "unsafesqlitesync": {
+      "name": "Unsafe SQL Lite Sync",
+      "description": "Disable waiting for the database to sync to disk. This is unsafe and can cause data loss and corruption. This option is only used by tests to improve their performance.",
+      "default": 0
     },
     "walletrbf": {
       "name": "Enable Replace By Fee Transactions",
