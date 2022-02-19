@@ -26,6 +26,11 @@ class Editor extends Component {
     const platform = settings.__internal.platform;
     const base = settings.core.datadir !== '$BASE' ? settings.core.datadir : basePath(platform);
 
+    // handle config dependencies here
+    if (settings.network.peerblockfilters === 1 && settings.core.blockfilterindex !== "1") {
+      settings.core.blockfilterindex = "1";
+    }
+
     return (
       <div>
         { this.select('__internal', 'platform') }
