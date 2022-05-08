@@ -685,7 +685,7 @@
     },
     "peerblockfilters": {
       "name": "Permit Peer Block Filters",
-      "description": "Serve compact block filters to peers per BIP 157.",
+      "description": "Serve compact block filters to peers per BIP 157. NOTE: enabling this will force blockfilterindex on",
       "default": 0
     },
     "peerbloomfilters": {
