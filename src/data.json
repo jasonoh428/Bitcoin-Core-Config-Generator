@@ -201,6 +201,20 @@
       "description": "Rebuild chain state and block index from the blk*.dat files on disk. WARNING: very slow!",
       "default": 0
     },
+    "sandbox": {
+      "name": "Sandbox Mode",
+      "description": {
+        "0": "Do not use the experimental syscall sandbox.",
+        "abort": "Allow only expected syscalls to be used by bitcoind. The invocation of an unexpected syscall results in the entire process being killed immediately by the kernel without executing the unexpected syscall. Note that this is an experimental new feature that may cause bitcoind to exit or crash unexpectedly: use with caution.",
+        "log-and-abort": "Allow only expected syscalls to be used by bitcoind. The invocation of an unexpected syscall results in a debug handler being invoked which will log the incident and terminate the program (without executing the unexpected syscall.) Note that this is an experimental new feature that may cause bitcoind to exit or crash unexpectedly: use with caution."
+      },
+      "default": "0",
+      "values": [
+        "Disabled [0]",
+        "Abort [abort]",
+        "Log and Abort [log-and-abort]"
+      ]
+    },
     "settings": {
       "name": "Settings Data File",
       "description": "Specify path to dynamic settings data file. Can be disabled with -nosettings. File is written at runtime and not meant to be edited by users. Relative paths will be prefixed by datadir location.",
@@ -253,9 +267,15 @@
       "min": 0,
       "max": 4
     },
+    "checkaddrman": {
+      "name": "Check Address Manager",
+      "description": "Run addrman consistency checks every <n> operations.",
+      "default": 0,
+      "min": 0
+    },
     "checkmempool": {
       "name": "Check Mempool",
-      "description": "Run checks every <n> transactions.",
+      "description": "Run mempool consistency checks every <n> transactions.",
       "default": 0,
       "min": 0
     },
@@ -284,6 +304,11 @@
     "stopatheight": {
       "name": "Stop At Height",
       "description": "Stop running after reaching the given height in the main chain.",
+      "default": 0
+    },
+    "testactivationheight": {
+      "name": "Test Activation Height",
+      "description": "Set the activation height of of 'name' (segwit, bip34, dersig, cltv, csv) via 'name@height' (regtest-only).",
       "default": 0
     },
     "limitancestorcount": {
@@ -488,11 +513,6 @@
       "name": "Shrink Debug Log File",
       "description": "Shrink debug.log file on client startup.",
       "default": 1
-    },
-    "segwitheight": {
-      "name": "SegWit Height",
-      "description": "Set the activation height of segwit. -1 to disable. (regtest-only)",
-      "default": 0
     }
   },
   "relay": {
@@ -572,6 +592,11 @@
       "name": "Bind to IP Address",
       "description": "Bind to given address and always listen on it. (default: 0.0.0.0). Use [host]:port notation for IPv6. Append =onion to tag any incoming connections to that address and port as incoming Tor connections",
       "default": ""
+    },
+    "cjdnsreachable": {
+      "name": "CJDNS Reachable",
+      "description": "If set, then this host is configured for CJDNS (connecting to fc00::/8 addresses would lead us to the CJDNS network)",
+      "default": 0
     },
     "connect": {
       "name": "Only Connect to Peer",
@@ -908,6 +933,12 @@
         "Bech32 [bech32]"
       ]
     },
+    "consolidatefeerate": {
+      "name": "Consolidate Fee Rate",
+      "description": "The maximum feerate (in BTC/kvB) at which transaction building may use more inputs than strictly necessary so that the wallet's UTXO pool can be reduced",
+      "default": 0.0001,
+      "min": 0.00001
+    },
     "disablewallet": {
       "name": "Disable Wallet",
       "description": "Do not load the wallet and disable wallet RPC calls.",
@@ -946,11 +977,6 @@
     "paytxfee": {
       "name": "Pay Transaction Fee",
       "description": "Fee rate (in BTC/kB) to add to transactions you send. Not recommended to set!",
-      "default": 0
-    },
-    "rescan": {
-      "name": "Rescan Wallet",
-      "description": "Rescan the blockchain for missing wallet transactions on startup. WARNING: very slow!",
       "default": 0
     },
     "signer": {
