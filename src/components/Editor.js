@@ -61,6 +61,7 @@ class Editor extends Component {
           { this.number('core', 'prune') }
           { this.flag('core', 'reindex-chainstate') }
           { this.flag('core', 'reindex') }
+          { this.select('core', 'sandbox') }
           { this.text('core', 'settings') }
           { this.text('core', 'startupnotify') }
           { this.flag('core', 'sysperms') }
@@ -72,12 +73,14 @@ class Editor extends Component {
           { this.flag('debug', 'capturemessages') }
           { this.number('debug', 'checkblocks') }
           { this.number('debug', 'checklevel') }
+          { this.number('debug', 'checkaddrman') }
           { this.number('debug', 'checkmempool') }
           { this.flag('debug', 'checkpoints') }
           { this.decimal('debug', 'dbcrashratio') }
           { this.flag('debug', 'fastprune') }
           { this.flag('debug', 'stopafterblockimport') }
           { this.number('debug', 'stopatheight') }
+          { this.text('debug', 'testactivationheight') }
           { this.number('debug', 'limitancestorcount') }
           { this.number('debug', 'limitancestorsize') }
           { this.number('debug', 'limitdescendantcount') }
@@ -98,7 +101,6 @@ class Editor extends Component {
           { this.flag('debug', 'printpriority') }
           { this.text('debug', 'promiscuousmempoolflags') }
           { this.flag('debug', 'shrinkdebugfile') }
-          { this.number('debug', 'segwitheight') }
         </Section>
         <Section title={data.chain.section} description={data.chain.description}>
           { this.select('chain', 'chain') }
@@ -119,6 +121,7 @@ class Editor extends Component {
           { this.path('network', 'asmap', base, platform) }
           { this.number('network', 'bantime') }
           { this.text('network', 'bind') }
+          { this.flag('network', 'cjdnsreachable') }
           { this.text('network', 'connect') }
           { this.flag('network', 'discover') }
           { this.flag('network', 'dns') }
@@ -184,6 +187,7 @@ class Editor extends Component {
           { this.select('wallet', 'addresstype') }
           { this.flag('wallet', 'avoidpartialspends') }
           { this.select('wallet', 'changetype') }
+          { this.decimal('wallet', 'consolidatefeerate') }
           { this.flag('wallet', 'disablewallet') }
           { this.number('wallet', 'keypool') }
           { this.decimal('wallet', 'fallbackfee') }
@@ -191,7 +195,6 @@ class Editor extends Component {
           { this.decimal('wallet', 'maxapsfee') }
           { this.decimal('wallet', 'mintxfee') }
           { this.decimal('wallet', 'paytxfee') }
-          { this.flag('wallet', 'rescan') }
           { this.text('wallet', 'signer') }
           { this.flag('wallet', 'spendzeroconfchange') }
           { this.text('wallet', 'rootcertificates') }
