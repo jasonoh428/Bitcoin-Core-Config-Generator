@@ -1,17 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const stylesNormal = {overflow: 'visible', height: 'auto'};
-const stylesLarge = {overflow: 'visible', height: 'auto'};
+const heightStyle = {height: '100%'};
 
 function Item ({title, description, children, disabled, large}) {
   const isDisabled = disabled ? 'disabled' : '';
   return (
     <li
       className={`mdl-list__item mdl-list__item--two-line ${isDisabled}`}
-      style={large ? stylesLarge : stylesNormal}
+      style={heightStyle}
     >
-      <span className='mdl-list__item-primary-content'>
+      <span className='mdl-list__item-primary-content' style={heightStyle}>
         <span>{title}</span>
         <span className='mdl-list__item-sub-title'>
           {description}
